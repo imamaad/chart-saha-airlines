@@ -1,0 +1,10 @@
+services:
+  chart-saha-airlines:
+    build: .
+    container_name: chart-saha-airlines
+    ports:
+      - "8888:80"   # دسترسی به سایت از طریق localhost:8080
+    volumes:
+      - .:/usr/share/nginx/html:ro  # برای توسعه سریع (فقط خواندنی)
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
