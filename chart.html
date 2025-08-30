@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8"/>
+    <title>چارت سازمانی داینامیک</title>
+    <script src="./js/tailwindcss.js"></script>
+    <script src="./js/d3.v7.min.js"></script>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="./styles/index.css">
+</head>
+
+<body class="custom-body">
+<div class="header">
+    <h1 id="chart-title" class="title">
+        چارت سازمانی
+    </h1>
+    <button id="toggle-view" class="toggle-button">
+        نمایش لیست
+    </button>
+</div>
+<nav id="breadcrumb" class="breadcrumb"></nav>
+<div id="chart-view" class="chart-view"></div>
+<div id="list-view" class="list-view hidden">
+    <ul id="list-container" class="list-container"></ul>
+</div>
+
+<script src="./js/index.js"></script>
+</body>
+</html>

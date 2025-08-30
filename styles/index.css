@@ -1,0 +1,100 @@
+/* ریست اولیه */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.custom-body {
+    background-color: #f3f4f6; /* معادل bg-gray-100 */
+    min-height: 100vh;         /* معادل min-h-screen */
+    padding: 1.5rem;           /* معادل p-6 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+/* Flex header: عنوان + دکمه */
+.header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 1rem;       /* معادل mb-4 */
+}
+
+.title {
+    font-size: 1.5rem;         /* معادل text-2xl */
+    font-weight: bold;
+    color: #1e293b;            /* معادل text-slate-800 */
+}
+
+.toggle-button {
+    padding: 0.5rem 1rem;      /* معادل px-4 py-2 */
+    background-color: #2563eb;/* معادل bg-blue-600 */
+    color: white;
+    border: none;
+    border-radius: 0.5rem;     /* معادل rounded-lg */
+    cursor: pointer;
+}
+
+.breadcrumb {
+    font-size: 0.875rem;       /* معادل text-sm */
+    color: #6b7280;            /* معادل text-gray-500 */
+    margin-bottom: 1.5rem;     /* معادل mb-6 */
+    width: 100%;
+}
+
+.chart-view {
+    width: 100%;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.list-view {
+    width: 100%;
+    overflow: auto;
+    padding: 1rem;             /* معادل p-4 */
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* معادل shadow */
+}
+
+/* برای پنهان کردن view با toggle */
+.hidden {
+    display: none;
+}
+
+.list-container > * + * {
+    margin-top: 0.5rem;       /* معادل space-y-2 */
+}
+
+
+
+body {
+    font-family: "Vazirmatn", sans-serif;
+}
+.node rect {
+    fill: #bfdbfe;
+    stroke: #3b82f6;
+    rx: 15;
+    ry: 15;
+}
+.node text {
+    font-size: 18px;
+    font-weight: 700;
+    fill: #1e3a8a;
+    text-anchor: middle;
+}
+.link {
+    fill: none;
+    stroke-width: 2px;
+}
+#breadcrumb a {
+    cursor: pointer;
+}
+#list-container li {
+    font-size: 14px;
+}
