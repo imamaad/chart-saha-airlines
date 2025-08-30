@@ -24,5 +24,4 @@ services:
 
 networks:
   saha-network:
-    name: saha-network
-    driver: bridge
+    external: true
