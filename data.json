@@ -1,46 +1,330 @@
 {
   "rawInitial": [
-    { "label": "بازرسان", "children": [] },
+    {
+      "label": "بازرسان",
+      "children": []
+    },
     {
       "label": "مدیرعامل",
       "name": "رضا خدائی",
       "employmentType": "بازنشسته - نظامی",
       "children": [
-        { "label": "رئیس حوزه ریاست و روابط عمومی", "name": "روح الله عظیمی روشن", "employmentType": "نظامی", "counts": {"official": 2,"contract": 3,"retired": 1,"partTime": 0}, "children": [] },
-        { "label": "معاونت اداری و منابع انسانی", "name": "سیروس جوکار", "employmentType": "بازنشسته - نظامی", "counts": {"official": 2,"contract": 2,"retired": 1,"partTime": 0}, "children": [] },
-        { "label": "معاونت مالی", "name": "مهدی ره گشای", "employmentType": "نظامی", "counts": {"official": 2,"contract": 12,"retired": 0,"partTime": 2}, "children": [] },
-        { "label": "معاونت بازرگانی", "name": "عبدالله نیکبختی", "employmentType": "نظامی", "counts": {"official": 1,"contract": 7,"retired": 0,"partTime": 0}, "children": [] },
-        { "label": "معاونت آموزش", "name": "مهدی جامه داری", "employmentType": "بازنشسته - نظامی", "counts": {"official": 0,"contract": 5,"retired": 2,"partTime": 0}, "children": [] },
-        { "label": "معاونت عملیات", "name": "کاظم امینی افشار", "employmentType": "بازنشسته", "counts": {"official": 5,"contract": 64,"retired": 16,"partTime": 2}, "children": [] },
-        { "label": "معاونت فنی", "name": "کریم کریمی", "employmentType": "بازنشسته - نظامی", "counts": {"official": 5,"contract": 13,"retired": 6,"partTime": 16}, "children": [] },
-        { "label": "معاونت آماد", "name": "بشیر اسلامی", "employmentType": "بازنشسته - نظامی", "counts": {"official": 13,"contract": 68,"retired": 12,"partTime": 0}, "children": [] },
-        { "label": "مدیریت سرویس خرید", "name": "مهدی میرزائی", "employmentType": "نظامی", "counts": {"official": 7,"contract": 3,"retired": 0,"partTime": 0}, "children": [] },
-        { "label": "مدیریت عملیات زمینی", "name": "علی حسین طلب", "employmentType": "بازنشسته - نظامی", "counts": {"official": 4,"contract": 7,"retired": 7,"partTime": 1}, "children": [] },
-        { "label": "مدیریت فناوری اطلاعات و ارتباطات", "name": "سعید تکبیری", "employmentType": "قرار دادی", "counts": {"official": 0,"contract": 2,"retired": 0,"partTime": 0}, "children": [] },
-        { "label": "مدیر کل ایمنی و تضمین کیفیت QA", "name": "محمد بخشنده", "employmentType": "بازنشسته - نظامی", "counts": {"official": 1,"contract": 5,"retired": 3,"partTime": 1}, "children": [] },
-        { "label": "مدیریت حراست", "name": "محمدحسن ابراهیمی", "employmentType": "نظامی", "counts": {"official": 2,"contract": 7,"retired": 3,"partTime": 0}, "children": [] }
+        {
+          "label": "رئیس حوزه ریاست و روابط عمومی",
+          "name": "روح الله عظیمی روشن",
+          "employmentType": "نظامی",
+          "counts": {
+            "official": 2,
+            "contract": 3,
+            "retired": 1,
+            "partTime": 0
+          },
+          "children": []
+        },
+        {
+          "label": "معاونت اداری و منابع انسانی",
+          "name": "سیروس جوکار",
+          "employmentType": "بازنشسته - نظامی",
+          "counts": {
+            "official": 2,
+            "contract": 2,
+            "retired": 1,
+            "partTime": 0
+          },
+          "children": []
+        },
+        {
+          "label": "معاونت مالی",
+          "name": "مهدی ره گشای",
+          "employmentType": "نظامی",
+          "counts": {
+            "official": 2,
+            "contract": 12,
+            "retired": 0,
+            "partTime": 2
+          },
+          "children": []
+        },
+        {
+          "label": "معاونت بازرگانی",
+          "name": "عبدالله نیکبختی",
+          "employmentType": "نظامی",
+          "counts": {
+            "official": 1,
+            "contract": 7,
+            "retired": 0,
+            "partTime": 0
+          },
+          "children": []
+        },
+        {
+          "label": "معاونت آموزش",
+          "name": "مهدی جامه داری",
+          "employmentType": "بازنشسته - نظامی",
+          "counts": {
+            "official": 0,
+            "contract": 5,
+            "retired": 2,
+            "partTime": 0
+          },
+          "children": []
+        },
+        {
+          "label": "معاونت عملیات",
+          "name": "کاظم امینی افشار",
+          "employmentType": "بازنشسته",
+          "counts": {
+            "official": 5,
+            "contract": 64,
+            "retired": 16,
+            "partTime": 2
+          },
+          "children": []
+        },
+        {
+          "label": "معاونت فنی",
+          "name": "کریم کریمی",
+          "employmentType": "بازنشسته - نظامی",
+          "counts": {
+            "official": 5,
+            "contract": 13,
+            "retired": 6,
+            "partTime": 16
+          },
+          "children": []
+        },
+        {
+          "label": "معاونت آماد",
+          "name": "بشیر اسلامی",
+          "employmentType": "بازنشسته - نظامی",
+          "counts": {
+            "official": 13,
+            "contract": 68,
+            "retired": 12,
+            "partTime": 0
+          },
+          "children": []
+        },
+        {
+          "label": "مدیریت سرویس خرید",
+          "name": "مهدی میرزائی",
+          "employmentType": "نظامی",
+          "counts": {
+            "official": 7,
+            "contract": 3,
+            "retired": 0,
+            "partTime": 0
+          },
+          "children": []
+        },
+        {
+          "label": "مدیریت عملیات زمینی",
+          "name": "علی حسین طلب",
+          "employmentType": "بازنشسته - نظامی",
+          "counts": {
+            "official": 4,
+            "contract": 7,
+            "retired": 7,
+            "partTime": 1
+          },
+          "children": []
+        },
+        {
+          "label": "مدیریت فناوری اطلاعات و ارتباطات",
+          "name": "سعید تکبیری",
+          "employmentType": "قرار دادی",
+          "counts": {
+            "official": 0,
+            "contract": 2,
+            "retired": 0,
+            "partTime": 0
+          },
+          "children": []
+        },
+        {
+          "label": "مدیر کل ایمنی و تضمین کیفیت QA",
+          "name": "محمد بخشنده",
+          "employmentType": "بازنشسته - نظامی",
+          "counts": {
+            "official": 1,
+            "contract": 5,
+            "retired": 3,
+            "partTime": 1
+          },
+          "children": []
+        },
+        {
+          "label": "مدیریت حراست",
+          "name": "محمدحسن ابراهیمی",
+          "employmentType": "نظامی",
+          "counts": {
+            "official": 2,
+            "contract": 7,
+            "retired": 3,
+            "partTime": 0
+          },
+          "children": []
+        }
       ]
     },
-    { "label": "دبیرخانه", "children": [] }
+    {
+      "label": "دبیرخانه",
+      "children": []
+    }
   ],
-
   "childrenDB": {
     "مدیرعامل": [
-      { "label": "رئیس حوزه ریاست و روابط عمومی", "name": "روح الله عظیمی روشن", "employmentType": "نظامی", "counts": {"official": 2,"contract": 3,"retired": 1,"partTime": 0}, "children": [] },
-      { "label": "معاونت اداری و منابع انسانی", "name": "سیروس جوکار", "employmentType": "بازنشسته - نظامی", "counts": {"official": 2,"contract": 2,"retired": 1,"partTime": 0}, "children": [] },
-      { "label": "معاونت مالی", "name": "مهدی ره گشای", "employmentType": "نظامی", "counts": {"official": 2,"contract": 12,"retired": 0,"partTime": 2}, "children": [] },
-      { "label": "معاونت بازرگانی", "name": "عبدالله نیکبختی", "employmentType": "نظامی", "counts": {"official": 1,"contract": 7,"retired": 0,"partTime": 0}, "children": [] },
-      { "label": "معاونت آموزش", "name": "مهدی جامه داری", "employmentType": "بازنشسته - نظامی", "counts": {"official": 0,"contract": 5,"retired": 2,"partTime": 0}, "children": [] },
-      { "label": "معاونت عملیات", "name": "کاظم امینی افشار", "employmentType": "بازنشسته", "counts": {"official": 5,"contract": 64,"retired": 16,"partTime": 2}, "children": [] },
-      { "label": "معاونت فنی", "name": "کریم کریمی", "employmentType": "بازنشسته - نظامی", "counts": {"official": 5,"contract": 13,"retired": 6,"partTime": 16}, "children": [] },
-      { "label": "معاونت آماد", "name": "بشیر اسلامی", "employmentType": "بازنشسته - نظامی", "counts": {"official": 13,"contract": 68,"retired": 12,"partTime": 0}, "children": [] },
-      { "label": "مدیریت سرویس خرید", "name": "مهدی میرزائی", "employmentType": "نظامی", "counts": {"official": 7,"contract": 3,"retired": 0,"partTime": 0}, "children": [] },
-      { "label": "مدیریت عملیات زمینی", "name": "علی حسین طلب", "employmentType": "بازنشسته - نظامی", "counts": {"official": 4,"contract": 7,"retired": 7,"partTime": 1}, "children": [] },
-      { "label": "مدیریت فناوری اطلاعات و ارتباطات", "name": "سعید تکبیری", "employmentType": "قرار دادی", "counts": {"official": 0,"contract": 2,"retired": 0,"partTime": 0}, "children": [] },
-      { "label": "مدیر کل ایمنی و تضمین کیفیت QA", "name": "محمد بخشنده", "employmentType": "بازنشسته - نظامی", "counts": {"official": 1,"contract": 5,"retired": 3,"partTime": 1}, "children": [] },
-      { "label": "مدیریت حراست", "name": "محمدحسن ابراهیمی", "employmentType": "نظامی", "counts": {"official": 2,"contract": 7,"retired": 3,"partTime": 0}, "children": [] }
+      {
+        "label": "رئیس حوزه ریاست و روابط عمومی",
+        "name": "روح الله عظیمی روشن",
+        "employmentType": "نظامی",
+        "counts": {
+          "official": 2,
+          "contract": 3,
+          "retired": 1,
+          "partTime": 0
+        },
+        "children": []
+      },
+      {
+        "label": "معاونت اداری و منابع انسانی",
+        "name": "سیروس جوکار",
+        "employmentType": "بازنشسته - نظامی",
+        "counts": {
+          "official": 2,
+          "contract": 2,
+          "retired": 1,
+          "partTime": 0
+        },
+        "children": []
+      },
+      {
+        "label": "معاونت مالی",
+        "name": "مهدی ره گشای",
+        "employmentType": "نظامی",
+        "counts": {
+          "official": 2,
+          "contract": 12,
+          "retired": 0,
+          "partTime": 2
+        },
+        "children": []
+      },
+      {
+        "label": "معاونت بازرگانی",
+        "name": "عبدالله نیکبختی",
+        "employmentType": "نظامی",
+        "counts": {
+          "official": 1,
+          "contract": 7,
+          "retired": 0,
+          "partTime": 0
+        },
+        "children": []
+      },
+      {
+        "label": "معاونت آموزش",
+        "name": "مهدی جامه داری",
+        "employmentType": "بازنشسته - نظامی",
+        "counts": {
+          "official": 0,
+          "contract": 5,
+          "retired": 2,
+          "partTime": 0
+        },
+        "children": []
+      },
+      {
+        "label": "معاونت عملیات",
+        "name": "کاظم امینی افشار",
+        "employmentType": "بازنشسته",
+        "counts": {
+          "official": 5,
+          "contract": 64,
+          "retired": 16,
+          "partTime": 2
+        },
+        "children": []
+      },
+      {
+        "label": "معاونت فنی",
+        "name": "کریم کریمی",
+        "employmentType": "بازنشسته - نظامی",
+        "counts": {
+          "official": 5,
+          "contract": 13,
+          "retired": 6,
+          "partTime": 16
+        },
+        "children": []
+      },
+      {
+        "label": "معاونت آماد",
+        "name": "بشیر اسلامی",
+        "employmentType": "بازنشسته - نظامی",
+        "counts": {
+          "official": 13,
+          "contract": 68,
+          "retired": 12,
+          "partTime": 0
+        },
+        "children": []
+      },
+      {
+        "label": "مدیریت سرویس خرید",
+        "name": "مهدی میرزائی",
+        "employmentType": "نظامی",
+        "children": []
+      },
+      {
+        "label": "مدیریت عملیات زمینی",
+        "name": "علی حسین طلب",
+        "employmentType": "بازنشسته - نظامی",
+        "counts": {
+          "official": 4,
+          "contract": 7,
+          "retired": 7,
+          "partTime": 1
+        },
+        "children": []
+      },
+      {
+        "label": "مدیریت فناوری اطلاعات و ارتباطات",
+        "name": "سعید تکبیری",
+        "employmentType": "قرار دادی",
+        "counts": {
+          "official": 0,
+          "contract": 2,
+          "retired": 0,
+          "partTime": 0
+        },
+        "children": []
+      },
+      {
+        "label": "مدیر کل ایمنی و تضمین کیفیت QA",
+        "name": "محمد بخشنده",
+        "employmentType": "بازنشسته - نظامی",
+        "counts": {
+          "official": 1,
+          "contract": 5,
+          "retired": 3,
+          "partTime": 1
+        },
+        "children": []
+      },
+      {
+        "label": "مدیریت حراست",
+        "name": "محمدحسن ابراهیمی",
+        "employmentType": "نظامی",
+        "counts": {
+          "official": 2,
+          "contract": 7,
+          "retired": 3,
+          "partTime": 0
+        },
+        "children": []
+      }
     ],
-
     "مدیریت حراست": [
       {
         "label": "جانشین حراست",
@@ -48,39 +332,39 @@
           {
             "label": "رئیس ستاد حراست ساختمان مرکزی",
             "children": [
-              { "label": "QC حراست", "children": [] },
+              {
+                "label": "QC حراست",
+                "children": []
+              },
               {
                 "label": "روئیس حراست ایستگاه",
                 "children": [
-                  { "label": "حراست کترینگ", "children": [] },
-                  { "label": "رئیس حراست ایستگاه مشهد", "children": [] },
-                  { "label": "رئیس حراست ایستگاه کیش", "children": [] },
-                  { "label": "رئیس حراست ایستگاه مهرآباد", "children": [] },
-                  { "label": "رئیس  حراست فرودگاه امام", "children": [] }
+                  {
+                    "label": "حراست کترینگ",
+                    "children": []
+                  },
+                  {
+                    "label": "رئیس حراست ایستگاه مشهد",
+                    "children": []
+                  },
+                  {
+                    "label": "رئیس حراست ایستگاه کیش",
+                    "children": []
+                  },
+                  {
+                    "label": "رئیس حراست ایستگاه مهرآباد",
+                    "children": []
+                  },
+                  {
+                    "label": "رئیس  حراست فرودگاه امام",
+                    "children": []
+                  }
                 ]
               }
             ]
           }
         ]
       }
-    ],
-
-    "رئیس حراست ایستگاه مشهد": [
-      { "label": "کارمند حراست تشخیص هویت و اتباع بیگانه", "children": [] },
-      { "label": "کارمندحراست کترینگ ومسافروبار", "children": [] },
-      { "label": "کارمندحراست تجهیزات و حراست زیر پرواز", "children": [] }
-    ],
-
-    "رئیس حراست ایستگاه کیش": [
-      { "label": "کارمند حراست تشخیص هویت و اتباع بیگانه", "children": [] },
-      { "label": "کارمندحراست کترینگ ومسافروبار", "children": [] },
-      { "label": "کارمندحراست تجهیزات و حراست زیر پرواز", "children": [] }
-    ],
-
-    "رئیس حراست ایستگاه مهرآباد": [
-      { "label": "کارمند حراست تشخیص هویت و اتباع بیگانه", "children": [] },
-      { "label": "کارمندحراست کترینگ ومسافروبار", "children": [] },
-      { "label": "کارمندحراست تجهیزات و حراست زیر پرواز", "children": [] }
     ]
   }
 }

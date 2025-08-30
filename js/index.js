@@ -28,6 +28,12 @@ async function loadData() {
     rawInitial = data.rawInitial || [];
     childrenDB = data.childrenDB || {};
 
+    childrenDB = {};
+    for (const key in data.childrenDB) {
+        const id = generateId(key);
+        childrenDB[id] = assignIdsRecursively(data.childrenDB[key]);
+    }
+
     initialChildren = assignIdsRecursively(rawInitial);
 
     fullData = {
