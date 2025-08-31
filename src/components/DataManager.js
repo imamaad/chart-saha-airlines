@@ -36,7 +36,7 @@ export class DataManager {
 
   assignIdsRecursively(node, parentId = null) {
     if (!node.id) {
-      node.id = this.generateId();
+      node.id = this.generateId(node.label);
     }
     
     if (node.children && node.children.length > 0) {
@@ -46,11 +46,16 @@ export class DataManager {
     }
   }
 
-  generateId() {
+  generateId(label) {
+    if (label) {
+      return label.replace(/[^a-zA-Z0-9\u0600-\u06FF]/g, '_').toLowerCase();
+    }
     return 'node_' + Math.random().toString(36).substr(2, 9);
   }
 
   findPathToNode(root, targetId) {
+    if (!root || !targetId) return [];
+    
     const path = [];
     
     const findPath = (node, targetId, currentPath) => {
@@ -140,6 +145,28 @@ export class DataManager {
     };
     
     return findNode(this.data, id);
+  }
+
+  // متد جدید برای جستجو در داده‌های ارسالی
+  getNodeByIdFromData(data, id) {
+    if (!data) return null;
+    
+    const findNode = (node, targetId) => {
+      if (node.id === targetId) {
+        return node;
+      }
+      
+      if (node.children) {
+        for (const child of node.children) {
+          const found = findNode(child, targetId);
+          if (found) return found;
+        }
+      }
+      
+      return null;
+    };
+    
+    return findNode(data, id);
   }
 
   getNodeByLabel(label) {

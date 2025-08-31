@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { DataManager } from './components/DataManager';
 import { ChartRenderer } from './components/ChartRenderer';
 import { ListRenderer } from './components/ListRenderer';
@@ -6,7 +7,17 @@ import { Breadcrumb } from './components/Breadcrumb';
 import { ErrorHandler } from './components/ErrorHandler';
 import { Header } from './components/Header';
 
+// کامپوننت اصلی که routing را مدیریت می‌کند
 function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+// کامپوننت محتوای اصلی که routing را مدیریت می‌کند
+function AppContent() {
   const [viewMode, setViewMode] = useState('chart');
   const [currentNode, setCurrentNode] = useState(null);
   const [breadcrumb, setBreadcrumb] = useState([]);
@@ -16,6 +27,8 @@ function App() {
 
   const dataManager = new DataManager();
   const errorHandler = new ErrorHandler();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     loadData();
@@ -26,6 +39,19 @@ function App() {
       updateBreadcrumb();
     }
   }, [currentNode]);
+
+  // بررسی URL برای navigation
+  useEffect(() => {
+    if (data && location.pathname !== '/') {
+      const nodeId = location.pathname.substring(1); // حذف / از ابتدای path
+      if (nodeId && nodeId !== 'root') {
+        const targetNode = dataManager.getNodeByIdFromData(data, nodeId);
+        if (targetNode) {
+          setCurrentNode(targetNode);
+        }
+      }
+    }
+  }, [data, location.pathname]);
 
   const loadData = async () => {
     setIsLoading(true);
@@ -45,7 +71,7 @@ function App() {
   };
 
   const updateBreadcrumb = () => {
-    if (!currentNode) return;
+    if (!currentNode || !data) return;
     
     const path = dataManager.findPathToNode(data, currentNode.id) || [];
     setBreadcrumb(path);
@@ -55,7 +81,14 @@ function App() {
     try {
       dataManager.loadChildrenIfNeeded(node);
       setCurrentNode(node);
-      window.location.hash = encodeURIComponent(node.id);
+      
+      // تغییر URL
+      if (node.id === 'root') {
+        navigate('/');
+      } else {
+        navigate(`/${node.id}`);
+      }
+      
       updateBreadcrumb();
     } catch (err) {
       setError(err.message);
@@ -66,10 +99,17 @@ function App() {
   const handleBreadcrumbClick = (node) => {
     try {
       // پیدا کردن گره در داده‌های اصلی
-      const targetNode = dataManager.getNodeById(node.id);
+      const targetNode = dataManager.getNodeByIdFromData(data, node.id);
       if (targetNode) {
         setCurrentNode(targetNode);
-        window.location.hash = encodeURIComponent(node.id);
+        
+        // تغییر URL
+        if (node.id === 'root') {
+          navigate('/');
+        } else {
+          navigate(`/${node.id}`);
+        }
+        
         updateBreadcrumb();
       }
     } catch (err) {
