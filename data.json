@@ -1,15 +1,30 @@
 {
-  "rawInitial": [
-    {
-      "label": "بازرسان",
-      "children": []
+  "organization": {
+    "id": "root",
+    "label": "شرکت هواپیمایی ساها",
+    "name": "سازمان مرکزی",
+    "employmentType": "سازمان",
+    "counts": {
+      "official": 25,
+      "contract": 120,
+      "retired": 35,
+      "partTime": 25
     },
-    {
+    "children": [
+      {
+        "id": "ceo",
       "label": "مدیرعامل",
       "name": "رضا خدائی",
       "employmentType": "بازنشسته - نظامی",
+        "counts": {
+          "official": 0,
+          "contract": 0,
+          "retired": 1,
+          "partTime": 0
+        },
       "children": [
         {
+            "id": "president",
           "label": "رئیس حوزه ریاست و روابط عمومی",
           "name": "روح الله عظیمی روشن",
           "employmentType": "نظامی",
@@ -22,6 +37,7 @@
           "children": []
         },
         {
+            "id": "hr",
           "label": "معاونت اداری و منابع انسانی",
           "name": "سیروس جوکار",
           "employmentType": "بازنشسته - نظامی",
@@ -34,6 +50,7 @@
           "children": []
         },
         {
+            "id": "finance",
           "label": "معاونت مالی",
           "name": "مهدی ره گشای",
           "employmentType": "نظامی",
@@ -46,6 +63,7 @@
           "children": []
         },
         {
+            "id": "commercial",
           "label": "معاونت بازرگانی",
           "name": "عبدالله نیکبختی",
           "employmentType": "نظامی",
@@ -58,6 +76,7 @@
           "children": []
         },
         {
+            "id": "education",
           "label": "معاونت آموزش",
           "name": "مهدی جامه داری",
           "employmentType": "بازنشسته - نظامی",
@@ -70,6 +89,7 @@
           "children": []
         },
         {
+            "id": "operations",
           "label": "معاونت عملیات",
           "name": "کاظم امینی افشار",
           "employmentType": "بازنشسته",
@@ -82,6 +102,7 @@
           "children": []
         },
         {
+            "id": "technical",
           "label": "معاونت فنی",
           "name": "کریم کریمی",
           "employmentType": "بازنشسته - نظامی",
@@ -94,922 +115,48 @@
           "children": []
         },
         {
+            "id": "logistics",
           "label": "معاونت آماد",
           "name": "بشیر اسلامی",
           "employmentType": "بازنشسته - نظامی",
           "counts": {
-            "official": 13,
-            "contract": 68,
-            "retired": 12,
-            "partTime": 0
-          },
-          "children": []
-        },
-        {
-          "label": "مدیریت سرویس خرید",
-          "name": "مهدی میرزائی",
-          "employmentType": "نظامی",
-          "counts": {
-            "official": 7,
-            "contract": 3,
-            "retired": 0,
-            "partTime": 0
-          },
-          "children": []
-        },
-        {
-          "label": "مدیریت عملیات زمینی",
-          "name": "علی حسین طلب",
-          "employmentType": "بازنشسته - نظامی",
-          "counts": {
-            "official": 4,
-            "contract": 7,
-            "retired": 7,
+              "official": 3,
+              "contract": 8,
+              "retired": 2,
             "partTime": 1
           },
           "children": []
         },
         {
-          "label": "مدیریت فناوری اطلاعات و ارتباطات",
-          "name": "سعید تکبیری",
-          "employmentType": "قرار دادی",
-          "counts": {
-            "official": 0,
-            "contract": 2,
-            "retired": 0,
-            "partTime": 0
-          },
-          "children": []
-        },
-        {
-          "label": "مدیر کل ایمنی و تضمین کیفیت QA",
-          "name": "محمد بخشنده",
-          "employmentType": "بازنشسته - نظامی",
-          "counts": {
-            "official": 1,
-            "contract": 5,
-            "retired": 3,
-            "partTime": 1
-          },
-          "children": []
-        },
-        {
-          "label": "مدیریت حراست",
-          "name": "محمدحسن ابراهیمی",
+            "id": "safety",
+            "label": "معاونت ایمنی",
+            "name": "محمد رضا صالحی",
           "employmentType": "نظامی",
           "counts": {
             "official": 2,
-            "contract": 7,
-            "retired": 3,
-            "partTime": 0
-          },
-          "children": []
-        }
-      ]
-    },
-    {
-      "label": "دبیرخانه",
-      "children": []
-    }
-  ],
-  "childrenDB": {
-    "مدیرعامل": [
-      {
-        "label": "رئیس حوزه ریاست و روابط عمومی",
-        "name": "روح الله عظیمی روشن",
-        "employmentType": "نظامی",
-        "counts": {
-          "official": 2,
-          "contract": 3,
+              "contract": 4,
           "retired": 1,
           "partTime": 0
         },
         "children": []
       },
       {
-        "label": "معاونت اداری و منابع انسانی",
-        "name": "سیروس جوکار",
-        "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 2,
-          "contract": 2,
-          "retired": 1,
-          "partTime": 0
-        },
-        "children": []
-      },
-      {
-        "label": "معاونت مالی",
-        "name": "مهدی ره گشای",
+            "id": "planning",
+            "label": "معاونت برنامه‌ریزی",
+            "name": "علی رضا محمدی",
         "employmentType": "نظامی",
         "counts": {
-          "official": 2,
-          "contract": 12,
-          "retired": 0,
-          "partTime": 2
-        },
-        "children": []
-      },
-      {
-        "label": "معاونت بازرگانی",
-        "name": "عبدالله نیکبختی",
-        "employmentType": "نظامی",
-        "counts": {
-          "official": 1,
-          "contract": 7,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": []
-      },
-      {
-        "label": "معاونت آموزش",
-        "name": "مهدی جامه داری",
-        "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 0,
-          "contract": 5,
-          "retired": 2,
-          "partTime": 0
-        },
-        "children": []
-      },
-      {
-        "label": "معاونت عملیات",
-        "name": "کاظم امینی افشار",
-        "employmentType": "بازنشسته",
-        "counts": {
-          "official": 5,
-          "contract": 64,
-          "retired": 16,
-          "partTime": 2
-        },
-        "children": []
-      },
-      {
-        "label": "معاونت فنی",
-        "name": "کریم کریمی",
-        "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 5,
-          "contract": 13,
-          "retired": 6,
-          "partTime": 16
-        },
-        "children": []
-      },
-      {
-        "label": "معاونت آماد",
-        "name": "بشیر اسلامی",
-        "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 13,
-          "contract": 68,
-          "retired": 12,
-          "partTime": 0
-        },
-        "children": []
-      },
-      {
-        "label": "مدیریت سرویس خرید",
-        "name": "مهدی میرزائی",
-        "employmentType": "نظامی",
-        "children": []
-      },
-      {
-        "label": "مدیریت عملیات زمینی",
-        "name": "علی حسین طلب",
-        "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 4,
-          "contract": 7,
-          "retired": 7,
+              "official": 3,
+              "contract": 6,
+              "retired": 1,
           "partTime": 1
         },
         "children": []
       },
       {
-        "label": "مدیریت فناوری اطلاعات و ارتباطات",
-        "name": "سعید تکبیری",
-        "employmentType": "قرار دادی",
-        "counts": {
-          "official": 0,
-          "contract": 2,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": []
-      },
-      {
-        "label": "مدیر کل ایمنی و تضمین کیفیت QA",
-        "name": "محمد بخشنده",
-        "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 1,
-          "contract": 5,
-          "retired": 3,
-          "partTime": 1
-        },
-        "children": []
-      },
-      {
-        "label": "مدیریت حراست",
-        "name": "محمدحسن ابراهیمی",
-        "employmentType": "نظامی",
-        "counts": {
-          "official": 2,
-          "contract": 7,
-          "retired": 3,
-          "partTime": 0
-        },
-        "children": []
-      }
-    ],
-    "مدیریت حراست": [
-      {
-        "label": "جانشین حراست",
-        "children": [
-          {
-            "label": "رئیس ستاد حراست ساختمان مرکزی",
-            "children": [
-              {
-                "label": "QC حراست",
-                "children": []
-              },
-              {
-                "label": "روئیس حراست ایستگاه",
-                "children": [
-                  {
-                    "label": "حراست کترینگ",
-                    "children": []
-                  },
-                  {
-                    "label": "رئیس حراست ایستگاه مشهد",
-                    "children": []
-                  },
-                  {
-                    "label": "رئیس حراست ایستگاه کیش",
-                    "children": []
-                  },
-                  {
-                    "label": "رئیس حراست ایستگاه مهرآباد",
-                    "children": []
-                  },
-                  {
-                    "label": "رئیس  حراست فرودگاه امام",
-                    "children": []
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "رئیس حراست ایستگاه مشهد": [
-      {
-        "label": "کارمند حراست تشخیص هویت و اتباع بیگانه",
-        "children": []
-      },
-      {
-        "label": "کارمندحراست کترینگ ومسافروبار",
-        "children": []
-      },
-      {
-        "label": "کارمندحراست تجهیزات و حراست زیر پرواز",
-        "children": []
-      }
-    ],
-    "رئیس حراست ایستگاه کیش": [
-      {
-        "label": "کارمند حراست تشخیص هویت و اتباع بیگانه",
-        "children": []
-      },
-      {
-        "label": "کارمندحراست کترینگ ومسافروبار",
-        "children": []
-      },
-      {
-        "label": "کارمندحراست تجهیزات و حراست زیر پرواز",
-        "children": []
-      }
-    ],
-    "رئیس حراست ایستگاه مهرآباد": [
-      {
-        "label": "کارمند حراست تشخیص هویت و اتباع بیگانه",
-        "children": []
-      },
-      {
-        "label": "کارمندحراست کترینگ ومسافروبار",
-        "children": []
-      },
-      {
-        "label": "کارمندحراست تجهیزات و حراست زیر پرواز",
-        "children": []
-      }
-    ],
-    "مدیریت عملیات زمینی": [
-      {
-        "label": "امور قراردادها - امور مالی صورت حساب",
-        "children": []
-      },
-      {
-        "label": "امور ایستگاها",
-        "children": []
-      },
-      {
-        "label": "رویه و مقررات آموزش عملیات زمینی",
-        "children": []
-      },
-      {
-        "label": "مدیر کارگو (عملیات زمینی)",
-        "children": []
-      }
-    ],
-    "رئیس حراست فرودگاه امام": [
-      {
-        "label": "حراست بار",
-        "children": []
-      },
-      {
-        "label": "حراست پای پرواز",
-        "children": []
-      },
-      {
-        "label": "حراست کترینگ",
-        "children": []
-      },
-      {
-        "label": "حراست اتباع بیگانه",
-        "children": []
-      },
-      {
-        "label": "حراست تشخیص هویت",
-        "children": []
-      },
-      {
-        "label": "حراست کالای خطرناک و اشیا ممنوعه",
-        "children": []
-      }
-    ],
-    "مدیر کل ایمنی و تضمین کیفیت QA": [
-      {
-        "label": "اداری",
-        "children": []
-      },
-      {
-        "label": "مدیر ایمنی",
-        "name": "مهدی کاویانی",
-        "employmentType": "نظامی",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "ایمنی پرواز",
-            "children": []
-          },
-          {
-            "label": "ایمنی فرودگاه و زمینی",
-            "children": []
-          },
-          {
-            "label": "آنالیز اطلاعات پرواز",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مدیر تضمین کیفیت",
-        "name": "مسعود مومنی",
-        "employmentType": "کارمند",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "کنترل کتب و نشریات",
-            "children": []
-          },
-          {
-            "label": "بازرسی و نظارت Auditirs",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "معاونت بازرگانی": [
-      {
-        "label": "مسئول امور اداری و دفتری",
-        "children": []
-      },
-      {
-        "label": "مدیر امور قرار دادها",
-        "children": [
-          {
-            "label": "کارشناس امور قراردادها",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مدیر فروش مسافر",
-        "name": "میشا فضلی",
-        "employmentType": "کارمند",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "برنامه ریزی پروازها",
-            "children": []
-          },
-          {
-            "label": "رویه و مقرارت نگهداری جا",
-            "children": []
-          },
-          {
-            "label": "تجزیه و تحلیل آمار و فروش",
-            "children": []
-          },
-          {
-            "label": "CRM",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مدیر فروش بار",
-        "name": "داوود امام علی زاده",
-        "employmentType": "بازنشسته - کارمند",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "رویه و مقررات امور آژانس ها",
-            "children": []
-          },
-          {
-            "label": "کارشناس فروش و چارتر بار",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "معاونت آماد": [
-      {
-        "label": "دایره اداری",
-        "children": []
-      },
-      {
-        "label": "مدیریت پشتیبانی",
-        "name": "فرهاد مرندی",
-        "employmentType": "نظامی",
-        "children": [
-          {
-            "label": "دایره ترانسپورت",
-            "children": []
-          },
-          {
-            "label": "تاسیسات و خدمات رفاهی",
-            "children": []
-          },
-          {
-            "label": "دایره تعمیرات و نگهداری خودرو",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مدیریت کترینگ",
-        "name": "حمیدرضا رجبی",
-        "employmentType": "نظامی",
-        "children": [
-          {
-            "label": "سرپرستی انبار اقلام مرکزی کترینگ",
-            "children": []
-          },
-          {
-            "label": "سرپرستی آشپزخانه",
-            "children": []
-          },
-          {
-            "label": "دایره توزیع",
-            "children": []
-          },
-          {
-            "label": "دایره بسته بندی",
-            "children": []
-          },
-          {
-            "label": "دایره تولید نان و شیرینی",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مدیریت مخازن",
-        "children": [
-          {
-            "label": "سرپرست دریافت و پخش",
-            "children": []
-          },
-          {
-            "label": "دایره حسابداری اقلام عمومی",
-            "children": []
-          },
-          {
-            "label": "افسر ذی حساب هواپیمایی ساها",
-            "children": []
-          },
-          {
-            "label": "دیره ثبت و نگهداری مدارک",
-            "children": []
-          },
-          {
-            "label": "دایره قطعه شماری و انبارگردانی",
-            "children": []
-          },
-          {
-            "label": "سرپرست انبار مرکزی اقلام",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مدیریت کنترل ماتریل",
-        "children": [
-          {
-            "label": "دایره حسابداری و اقدام فنی",
-            "children": []
-          },
-          {
-            "label": "دایره تشریاتی و سامانه های ماتریلی",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "معاونت آموزش": [
-      {
-        "label": "اداری",
-        "children": []
-      },
-      {
-        "label": "واحد آموزش های هوانوردی",
-        "children": [
-          {
-            "label": "آموزش های عملیاتی",
-            "children": []
-          },
-          {
-            "label": "آموزش های زمینی و خدمات فرودگاهی",
-            "children": []
-          },
-          {
-            "label": "آموزش های فنی",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "کنترل داده ها و ارزشیابی آموزش",
-        "children": []
-      },
-      {
-        "label": "واحد نشریات",
-        "children": []
-      },
-      {
-        "label": "تدوین روش ها و فرایندها",
-        "children": []
-      }
-    ],
-    "مدیریت سرویس خرید": [
-      {
-        "label": "دایره خرید اقلام هواپیما",
-        "children": []
-      },
-      {
-        "label": "دایره خرید اقلام عمومی",
-        "children": []
-      },
-      {
-        "label": "دایره ترخیصی اقلام",
-        "children": []
-      },
-      {
-        "label": "دایره Shipping & Reciving",
-        "children": []
-      }
-    ],
-    "رئیس حوزه ریاست و روابط عمومی": [
-      {
-        "label": "دایره اداری",
-        "children": [
-          {
-            "label": "مسئول دفتر",
-            "children": []
-          },
-          {
-            "label": "دبیر خانه",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "روابط عمومی",
-        "children": []
-      }
-    ],
-    "معاونت اداری و منابع انسانی": [
-      {
-        "label": "مدیریت اداری",
-        "children": [
-          {
-            "label": "خدمات و رفاه",
-            "children": []
-          },
-          {
-            "label": "اپراتور رایانه",
-            "children": []
-          },
-          {
-            "label": "ثبت و بایگانی",
-            "children": []
-          },
-          {
-            "label": "تحلیل آماری نیروی انسانی",
-            "children": []
-          },
-          {
-            "label": "امور قراردادها و بیمه",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مدیریت منابع انسانی",
-        "name": "علی دودانگه",
-        "employmentType": "کارمند",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "ارزیابی عملکرد",
-            "children": []
-          },
-          {
-            "label": "امور پرسنلی",
-            "children": []
-          },
-          {
-            "label": "کارشناس استخدام و گزینش",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "معاونت عملیات": [
-      {
-        "label": "ناظر ایمنی",
-        "children": [
-          {
-            "label": "ایمنی پرواز",
-            "children": []
-          },
-          {
-            "label": "ناظر انطباق عملیات",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "آموزش عملیات",
-        "name": "سیدشاهین جنانی",
-        "employmentType": "کارمند",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "افسر آموزش",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مهندسی عملیات",
-        "name": "خشایار جولایی",
-        "employmentType": "کارمند",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        }
-      },
-      {
-        "label": "مدیر برنامه ریزی عملیات",
-        "name": "حمیدرضا جمشید گرجی",
-        "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": []
-      },
-      {
-        "label": "مدیرت ناوگان",
-        "children": [
-          {
-            "label": "مدیر ناوگان B737",
-            "name": "حسن عمادیان",
-            "employmentType": "کارمند",
-            "counts": {
-              "official": 0,
-              "contract": 0,
-              "retired": 0,
-              "partTime": 0
-            },
-            "children": []
-          },
-          {
-            "label": "مدیر ناوگان B747",
-            "name": "میراحد اجاقی",
-            "employmentType": "کارمند",
-            "counts": {
-              "official": 0,
-              "contract": 0,
-              "retired": 0,
-              "partTime": 0
-            },
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "خدمات پرواز",
-        "children": [
-          {
-            "label": "ایمنی خدمه",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "برنامه ریزی کرو",
-        "children": []
-      },
-      {
-        "label": "دیسپچ",
-        "children": [
-          {
-            "label": "مدیر دیسپچ",
-            "name": "لیلا صفری",
-            "employmentType": "کارمند",
-            "counts": {
-              "official": 0,
-              "contract": 0,
-              "retired": 0,
-              "partTime": 0
-            },
-            "children": [
-              {
-                "label": "دیسپچر های شیفت A-B",
-                "children": []
-              }
-            ]
-          },
-          {
-            "label": "آموزش دیسپچ",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "معاونت مالی": [
-      {
-        "label": "مدیر مالی",
-        "name": "وحید کوهستانی",
-        "employmentType": "نظامی",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "اداری",
-            "children": []
-          },
-          {
-            "label": "درآمد",
-            "children": []
-          },
-          {
-            "label": "حسابرسی - هزینه",
-            "children": []
-          },
-          {
-            "label": "تجزیه و تحلیل",
-            "children": []
-          },
-          {
-            "label": "حسابداری",
-            "children": []
-          },
-          {
-            "label": "دریافت و پرداخت",
-            "children": []
-          },
-          {
-            "label": "حقوق و مزایا",
-            "children": []
-          }
-        ]
-      }
-    ],
-    "معاونت فنی": [
-      {
-        "label": "اداری",
-        "children": []
-      },
-      {
-        "label": "مدیر کنترل متریال",
-        "name": "بابک ابیضی",
-        "employmentType": "نظامی",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
-        "children": [
-          {
-            "label": "سرپرست کنترل متریال",
-            "children": [
-              {
-                "label": "کارشناس کنترل متریال",
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "مدیر تعمیرات",
-        "children": [
-          {
-            "label": "جانشین مدیر تعمیرات",
-            "children": [
-              {
-                "label": "سرپرست 747",
-                "name": "هادی رجبی",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
-                "employmentType": "نظامی",
-                "children": [
-                  {
-                    "label": "شیفت A",
-                    "children": []
-                  },
-                  {
-                    "label": "شیفت B",
-                    "children": []
-                  }
-                ]
-              },
-              {
-                "label": "سرپرست 737",
-                "name": "علیرضا قاسم زاده",
+            "id": "inspection",
+            "label": "بازرسان",
+            "name": "تیم بازرسی",
                 "employmentType": "نظامی",
                 "counts": {
                   "official": 0,
@@ -1017,155 +164,6 @@
                   "retired": 0,
                   "partTime": 0
                 },
-                "children": [
-                  {
-                    "label": "شیفت A",
-                    "children": []
-                  },
-                  {
-                    "label": "شیفت B",
-                    "children": []
-                  },
-                  {
-                    "label": "شیفت C",
-                    "children": []
-                  },
-                  {
-                    "label": "شیفت D",
-                    "children": []
-                  },
-                  {
-                    "label": "ترخیص کننده هواپیما سرشیفت",
-                    "children": []
-                  },
-                  {
-                    "label": "B1/B2 (TYPE 737)",
-                    "children": []
-                  },
-                  {
-                    "label": "BASIC (B1/B2)",
-                    "children": []
-                  },
-                  {
-                    "label": "CLEANER",
-                    "children": []
-                  }
-                ]
-              },
-              {
-                "label": "خدمات پشتیبانی خط پرواز",
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "مدیر انبار",
-        "children": [
-          {
-            "label": "سرپرست انبار",
-            "children": [
-              {
-                "label": "کارشناس انبار",
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "مدیر کنترل و برنامه PPC",
-        "children": [
-          {
-            "label": "سرپرست PPC",
-            "children": [
-              {
-                "label": "مهندس PPC",
-                "children": []
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "label": "مدیر صلاحیت پرواز",
-        "name": "حامد معماریان",
-        "employmentType": "نظامی",
-        "children": [
-          {
-            "label": "سوپروایزر صلاحیت پرواز",
-            "children": [
-              {
-                "label": "سروپرست برنامه ریزی",
-                "children": []
-              },
-              {
-                "label": "B737 و B747 مهندسی برنامه ریزی",
-                "children": []
-              },
-              {
-                "label": "مهندسی اسناد و ثبت",
-                "children": []
-              }
-            ]
-          },
-          {
-            "label": "سرپرست مهندسی",
-            "children": [
-              {
-                "label": "مهندس سیستم های هواپیما",
-                "children": []
-              },
-              {
-                "label": "مهندس قابلیت اطمینان",
-                "children": []
-              },
-              {
-                "label": "مهندس قابلیت اطمینان",
-                "children": []
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "مدیریت فناوری اطلاعات و ارتباطات": [
-      {
-        "label": "پدافند غیر عامل (امنیت سایبری)",
-        "children": [
-          {
-            "label": "کارشناس امنیت",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "مخابراط و زیرساخت",
-        "children": [
-          {
-            "label": "کارشناس مرکز خطوط تلفن",
-            "children": []
-          },
-          {
-            "label": "کارشناس بیسیم",
-            "children": []
-          }
-        ]
-      },
-      {
-        "label": "فناوری اطلاعات",
-        "children": [
-          {
-            "label": "مدیر شبکه و کارشناس شبکه",
-            "children": []
-          },
-          {
-            "label": "کارشناس سخت افزار و نرم افزار",
-            "children": []
-          },
-          {
-            "label": "کارشناس برنامه نویسی ",
             "children": []
           }
         ]
