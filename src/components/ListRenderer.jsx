@@ -158,6 +158,50 @@ export const ListRenderer = ({ data, onRowClick }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      {/* آمار کلی */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '16px'
+      }}>
+        <div style={{
+          background: 'linear-gradient(to right, #10b981, #059669)',
+          color: 'white',
+          borderRadius: '12px',
+          padding: '16px'
+        }}>
+          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.official}</div>
+          <div style={{ fontSize: '14px', opacity: 0.9 }}>نظامی و رسمی</div>
+        </div>
+        <div style={{
+          background: 'linear-gradient(to right, #3b82f6, #2563eb)',
+          color: 'white',
+          borderRadius: '12px',
+          padding: '16px'
+        }}>
+          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.contract}</div>
+          <div style={{ fontSize: '14px', opacity: 0.9 }}>قراردادی</div>
+        </div>
+        <div style={{
+          background: 'linear-gradient(to right, #f59e0b, #d97706)',
+          color: 'white',
+          borderRadius: '12px',
+          padding: '16px'
+        }}>
+          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.retired}</div>
+          <div style={{ fontSize: '14px', opacity: 0.9 }}>بازنشسته</div>
+        </div>
+        <div style={{
+          background: 'linear-gradient(to right, #8b5cf6, #7c3aed)',
+          color: 'white',
+          borderRadius: '12px',
+          padding: '16px'
+        }}>
+          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.partTime}</div>
+          <div style={{ fontSize: '14px', opacity: 0.9 }}>پاره‌وقت</div>
+        </div>
+      </div>
+
       {/* کنترل‌های جدول */}
       <div style={{
         display: 'flex',
@@ -222,50 +266,6 @@ export const ListRenderer = ({ data, onRowClick }) => {
             <span>تعداد نتایج:</span>
             <span style={{ fontWeight: '600', color: '#3b82f6' }}>{filteredAndSortedData.length}</span>
           </div>
-        </div>
-      </div>
-
-      {/* آمار کلی */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '16px'
-      }}>
-        <div style={{
-          background: 'linear-gradient(to right, #10b981, #059669)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.official}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>نظامی و رسمی</div>
-        </div>
-        <div style={{
-          background: 'linear-gradient(to right, #3b82f6, #2563eb)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.contract}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>قراردادی</div>
-        </div>
-        <div style={{
-          background: 'linear-gradient(to right, #f59e0b, #d97706)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.retired}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>بازنشسته</div>
-        </div>
-        <div style={{
-          background: 'linear-gradient(to right, #8b5cf6, #7c3aed)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.partTime}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>پاره‌وقت</div>
         </div>
       </div>
 

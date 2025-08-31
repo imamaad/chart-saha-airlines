@@ -1,6 +1,24 @@
 import React from 'react';
 
-export const Header = ({ title, viewMode, onToggleView }) => {
+export const Header = ({ title, viewMode, onToggleView, data }) => {
+  // محاسبه آمار کلی
+  const getTotalStats = () => {
+    if (!data || !data.counts) return { official: 0, contract: 0, retired: 0, partTime: 0, total: 0 };
+    
+    const counts = data.counts;
+    const total = (counts.official || 0) + (counts.contract || 0) + (counts.retired || 0) + (counts.partTime || 0);
+    
+    return {
+      official: counts.official || 0,
+      contract: counts.contract || 0,
+      retired: counts.retired || 0,
+      partTime: counts.partTime || 0,
+      total
+    };
+  };
+
+  const stats = getTotalStats();
+
   return (
     <div style={{
       background: 'linear-gradient(to right, #3b82f6, #1d4ed8, #1e40af)',
@@ -36,7 +54,7 @@ export const Header = ({ title, viewMode, onToggleView }) => {
           <div>
             <h1 style={{
               fontSize: '24px',
-              fontWeight: 700,
+              fontWeight: '700',
               margin: '0 0 4px 0'
             }}>
               {title || 'چارت سازمانی'}
@@ -44,10 +62,73 @@ export const Header = ({ title, viewMode, onToggleView }) => {
             <p style={{
               color: '#bfdbfe',
               fontSize: '14px',
-              margin: 0
+              margin: '0 0 8px 0'
             }}>
               شرکت هواپیمایی ساها
             </p>
+            
+            {/* نمایش آمار کلی */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(5, 1fr)',
+              gap: '8px',
+              marginTop: '12px'
+            }}>
+              <div style={{
+                background: 'rgba(255, 255, 255, 0.15)',
+                padding: '8px',
+                borderRadius: '8px',
+                textAlign: 'center',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.total}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>کل</div>
+              </div>
+              
+              <div style={{
+                background: 'rgba(16, 185, 129, 0.2)',
+                padding: '8px',
+                borderRadius: '8px',
+                textAlign: 'center',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.official}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>رسمی</div>
+              </div>
+              
+              <div style={{
+                background: 'rgba(59, 130, 246, 0.2)',
+                padding: '8px',
+                borderRadius: '8px',
+                textAlign: 'center',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.contract}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>قراردادی</div>
+              </div>
+              
+              <div style={{
+                background: 'rgba(245, 158, 11, 0.2)',
+                padding: '8px',
+                borderRadius: '8px',
+                textAlign: 'center',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.retired}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>بازنشسته</div>
+              </div>
+              
+              <div style={{
+                background: 'rgba(139, 92, 246, 0.2)',
+                padding: '8px',
+                borderRadius: '8px',
+                textAlign: 'center',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.partTime}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>پاره‌وقت</div>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -59,7 +140,7 @@ export const Header = ({ title, viewMode, onToggleView }) => {
             padding: '12px 24px',
             background: 'rgba(255, 255, 255, 0.2)',
             color: 'white',
-            fontWeight: 600,
+            fontWeight: '600',
             borderRadius: '12px',
             border: '1px solid rgba(255, 255, 255, 0.3)',
             cursor: 'pointer',

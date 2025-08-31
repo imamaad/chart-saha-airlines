@@ -4,24 +4,12 @@
     "label": "هیأت مدیره",
     "name": "سازمان مرکزی",
     "employmentType": "سازمان",
-    "counts": {
-      "official": 0,
-      "contract": 0,
-      "retired": 0,
-      "partTime": 0
-    },
     "children": [
       {
         "id": "بازرسان",
         "label": "بازرسان",
         "name": "تیم بازرسی",
         "employmentType": "نظامی",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
         "children": []
       },
       {
@@ -29,24 +17,12 @@
         "label": "مدیرعامل",
         "name": "رضا خدائی",
         "employmentType": "بازنشسته - نظامی",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 1,
-          "partTime": 0
-        },
         "children": [
           {
             "id": "رئیس_حوزه_ریاست_و_روابط_عمومی",
             "label": "رئیس حوزه ریاست و روابط عمومی",
             "name": "روح الله عظیمی روشن",
             "employmentType": "نظامی",
-            "counts": {
-              "official": 2,
-              "contract": 3,
-              "retired": 1,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "دایره_اداری",
@@ -76,12 +52,6 @@
             "label": "معاونت اداری و منابع انسانی",
             "name": "سیروس جوکار",
             "employmentType": "بازنشسته - نظامی",
-            "counts": {
-              "official": 2,
-              "contract": 2,
-              "retired": 1,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "مدیریت_اداری",
@@ -119,12 +89,6 @@
                 "label": "مدیریت منابع انسانی",
                 "name": "علی دودانگه",
                 "employmentType": "کارمند",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "ارزیابی_عملکرد",
@@ -150,24 +114,12 @@
             "label": "معاونت مالی",
             "name": "مهدی ره گشای",
             "employmentType": "نظامی",
-            "counts": {
-              "official": 2,
-              "contract": 12,
-              "retired": 0,
-              "partTime": 2
-            },
             "children": [
               {
                 "id": "مدیر_مالی",
                 "label": "مدیر مالی",
                 "name": "وحید کوهستانی",
                 "employmentType": "نظامی",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "اداری",
@@ -213,12 +165,6 @@
             "label": "معاونت بازرگانی",
             "name": "عبدالله نیکبختی",
             "employmentType": "نظامی",
-            "counts": {
-              "official": 1,
-              "contract": 7,
-              "retired": 0,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "مسئول_امور_اداری_و_دفتری",
@@ -241,12 +187,6 @@
                 "label": "مدیر فروش مسافر",
                 "name": "میشا فضلی",
                 "employmentType": "کارمند",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "برنامه_ریزی_پروازها",
@@ -275,12 +215,6 @@
                 "label": "مدیر فروش بار",
                 "name": "داوود امام علی زاده",
                 "employmentType": "بازنشسته - کارمند",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "رویه_و_مقررات_امور_آژانس_ها",
@@ -301,12 +235,6 @@
             "label": "معاونت آموزش",
             "name": "مهدی جامه داری",
             "employmentType": "بازنشسته - نظامی",
-            "counts": {
-              "official": 0,
-              "contract": 5,
-              "retired": 2,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "اداری",
@@ -356,12 +284,6 @@
             "label": "معاونت عملیات",
             "name": "کاظم امینی افشار",
             "employmentType": "بازنشسته",
-            "counts": {
-              "official": 5,
-              "contract": 64,
-              "retired": 16,
-              "partTime": 2
-            },
             "children": [
               {
                 "id": "ناظر_ایمنی",
@@ -384,12 +306,6 @@
                 "label": "آموزش عملیات",
                 "name": "سیدشاهین جنانی",
                 "employmentType": "کارمند",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "افسر_آموزش",
@@ -403,12 +319,6 @@
                 "label": "مهندسی عملیات",
                 "name": "خشایار جولایی",
                 "employmentType": "کارمند",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": []
               },
               {
@@ -416,12 +326,6 @@
                 "label": "مدیر برنامه ریزی عملیات",
                 "name": "حمیدرضا جمشید گرجی",
                 "employmentType": "بازنشسته - نظامی",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": []
               },
               {
@@ -433,12 +337,6 @@
                     "label": "مدیر ناوگان B737",
                     "name": "حسن عمادیان",
                     "employmentType": "کارمند",
-                    "counts": {
-                      "official": 0,
-                      "contract": 0,
-                      "retired": 0,
-                      "partTime": 0
-                    },
                     "children": []
                   },
                   {
@@ -446,12 +344,6 @@
                     "label": "مدیر ناوگان B747",
                     "name": "میراحد اجاقی",
                     "employmentType": "کارمند",
-                    "counts": {
-                      "official": 0,
-                      "contract": 0,
-                      "retired": 0,
-                      "partTime": 0
-                    },
                     "children": []
                   }
                 ]
@@ -481,12 +373,6 @@
                     "label": "مدیر دیسپچ",
                     "name": "لیلا صفری",
                     "employmentType": "کارمند",
-                    "counts": {
-                      "official": 0,
-                      "contract": 0,
-                      "retired": 0,
-                      "partTime": 0
-                    },
                     "children": [
                       {
                         "id": "دیسپچر_های_شیفت_a-b",
@@ -509,12 +395,6 @@
             "label": "معاونت فنی",
             "name": "کریم کریمی",
             "employmentType": "بازنشسته - نظامی",
-            "counts": {
-              "official": 5,
-              "contract": 13,
-              "retired": 6,
-              "partTime": 16
-            },
             "children": [
               {
                 "id": "اداری",
@@ -526,12 +406,6 @@
                 "label": "مدیر کنترل متریال",
                 "name": "بابک ابیضی",
                 "employmentType": "نظامی",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "سرپرست_کنترل_متریال",
@@ -559,12 +433,6 @@
                         "label": "سرپرست 747",
                         "name": "هادی رجبی",
                         "employmentType": "نظامی",
-                        "counts": {
-                          "official": 0,
-                          "contract": 0,
-                          "retired": 0,
-                          "partTime": 0
-                        },
                         "children": [
                           {
                             "id": "شیفت_a",
@@ -583,12 +451,6 @@
                         "label": "سرپرست 737",
                         "name": "علیرضا قاسم زاده",
                         "employmentType": "نظامی",
-                        "counts": {
-                          "official": 0,
-                          "contract": 0,
-                          "retired": 0,
-                          "partTime": 0
-                        },
                         "children": [
                           {
                             "id": "شیفت_a",
@@ -732,12 +594,6 @@
             "label": "معاونت آماد",
             "name": "بشیر اسلامی",
             "employmentType": "بازنشسته - نظامی",
-            "counts": {
-              "official": 13,
-              "contract": 68,
-              "retired": 12,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "دایره_اداری",
@@ -859,12 +715,6 @@
             "label": "مدیریت سرویس خرید",
             "name": "مهدی میرزائی",
             "employmentType": "نظامی",
-            "counts": {
-              "official": 7,
-              "contract": 3,
-              "retired": 0,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "دایره_خرید_اقلام_هواپیما",
@@ -893,12 +743,6 @@
             "label": "مدیریت عملیات زمینی",
             "name": "علی حسین طلب",
             "employmentType": "بازنشسته - نظامی",
-            "counts": {
-              "official": 4,
-              "contract": 7,
-              "retired": 7,
-              "partTime": 1
-            },
             "children": [
               {
                 "id": "امور_قراردادها_-_امور_مالی_صورت_حساب",
@@ -927,12 +771,6 @@
             "label": "مدیریت فناوری اطلاعات و ارتباطات",
             "name": "سعید تکبیری",
             "employmentType": "قرار دادی",
-            "counts": {
-              "official": 0,
-              "contract": 2,
-              "retired": 0,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "پدافند_غیر_عامل_امنیت_سایبری",
@@ -989,12 +827,6 @@
             "label": "مدیر کل ایمنی و تضمین کیفیت QA",
             "name": "محمد بخشنده",
             "employmentType": "بازنشسته - نظامی",
-            "counts": {
-              "official": 1,
-              "contract": 5,
-              "retired": 3,
-              "partTime": 1
-            },
             "children": [
               {
                 "id": "اداری",
@@ -1006,12 +838,6 @@
                 "label": "مدیر ایمنی",
                 "name": "مهدی کاویانی",
                 "employmentType": "نظامی",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "ایمنی_پرواز",
@@ -1035,12 +861,6 @@
                 "label": "مدیر تضمین کیفیت",
                 "name": "مسعود مومنی",
                 "employmentType": "کارمند",
-                "counts": {
-                  "official": 0,
-                  "contract": 0,
-                  "retired": 0,
-                  "partTime": 0
-                },
                 "children": [
                   {
                     "id": "کنترل_کتب_و_نشریات",
@@ -1061,12 +881,6 @@
             "label": "مدیریت حراست",
             "name": "محمدحسن ابراهیمی",
             "employmentType": "نظامی",
-            "counts": {
-              "official": 2,
-              "contract": 7,
-              "retired": 3,
-              "partTime": 0
-            },
             "children": [
               {
                 "id": "جانشین_حراست",
@@ -1204,12 +1018,6 @@
         "label": "دبیرخانه",
         "name": "دبیرخانه مرکزی",
         "employmentType": "سازمان",
-        "counts": {
-          "official": 0,
-          "contract": 0,
-          "retired": 0,
-          "partTime": 0
-        },
         "children": []
       }
     ]

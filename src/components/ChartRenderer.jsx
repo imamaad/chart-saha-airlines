@@ -14,6 +14,7 @@ import 'reactflow/dist/style.css';
 /* --------------------------- Org Node (memo) --------------------------- */
 const OrgNode = React.memo(function OrgNode({ data }) {
   const [hovered, setHovered] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const counts = data.counts || {};
   const total =
@@ -41,6 +42,11 @@ const OrgNode = React.memo(function OrgNode({ data }) {
     return colors[Math.min(level, colors.length - 1)];
   };
 
+  const getPercentage = (value) => {
+    if (total === 0) return '0%';
+    return `${((value / total) * 100).toFixed(0)}%`;
+  };
+
   return (
     <div
       onMouseEnter={() => {
@@ -52,6 +58,7 @@ const OrgNode = React.memo(function OrgNode({ data }) {
         data.onMouseLeave?.();
       }}
       onClick={data.onNodeClick}
+      onDoubleClick={() => setShowDetails(!showDetails)}
       style={{
         padding: '16px',
         borderRadius: '16px',
@@ -59,14 +66,17 @@ const OrgNode = React.memo(function OrgNode({ data }) {
         boxShadow: hovered ? '0 16px 40px rgba(0, 0, 0, 0.25)' : '0 8px 25px rgba(0, 0, 0, 0.15)',
         cursor: 'pointer',
         transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-        width: '280px',
-        maxWidth: '320px',
+        width: '320px', // عرض ثابت برای تمام گره‌ها
+        minHeight: '280px', // حداقل ارتفاع برای یکسان بودن
         textAlign: 'center',
         position: 'relative',
         transform: hovered ? 'scale(1.05) translateY(-4px)' : 'scale(1)',
         transformOrigin: 'center',
         backdropFilter: 'blur(10px)',
         backgroundColor: 'rgba(255, 255, 255, 0.98)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
       }}
     >
       {/* Handle بالا */}
@@ -125,144 +135,292 @@ const OrgNode = React.memo(function OrgNode({ data }) {
         </svg>
       </div>
 
-      {/* عنوان */}
-      <div
-        style={{
-          fontSize: '16px',
-          fontWeight: '700',
-          color: '#1f2937',
-          marginBottom: '8px',
-          lineHeight: '1.3',
-          textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
-          wordBreak: 'break-word',
-        }}
-      >
-        {data.label}
-      </div>
-
-      {/* نام پرسنل */}
-      {data.name ? (
-        <div style={{ fontSize: '14px', color: '#6b7280', marginBottom: '6px', fontWeight: '600', fontStyle: 'italic' }}>
-          {data.name}
+      {/* محتوای اصلی */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {/* عنوان */}
+        <div
+          style={{
+            fontSize: '16px',
+            fontWeight: '700',
+            color: '#1f2937',
+            marginBottom: '8px',
+            lineHeight: '1.3',
+            textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+            wordBreak: 'break-word',
+            minHeight: '44px', // ارتفاع ثابت برای عنوان
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          {data.label || 'بدون عنوان'}
         </div>
-      ) : null}
 
-      {/* نوع استخدام */}
-      {data.employmentType ? (
+        {/* نام پرسنل - همیشه نمایش داده می‌شود */}
+        <div style={{ 
+          fontSize: '14px', 
+          color: data.name ? '#6b7280' : '#d1d5db', 
+          marginBottom: '6px', 
+          fontWeight: '600', 
+          fontStyle: data.name ? 'italic' : 'normal',
+          minHeight: '20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          {data.name || 'نام مشخص نشده'}
+        </div>
+
+        {/* نوع استخدام - همیشه نمایش داده می‌شود */}
         <div
           style={{
             fontSize: '12px',
-            color: '#9ca3af',
+            color: data.employmentType ? '#9ca3af' : '#d1d5db',
             marginBottom: '12px',
             padding: '4px 10px',
-            background: 'linear-gradient(135deg, #f3f4f6, #e5e7eb)',
+            background: data.employmentType ? 'linear-gradient(135deg, #f3f4f6, #e5e7eb)' : 'linear-gradient(135deg, #f9fafb, #f3f4f6)',
             borderRadius: '10px',
             display: 'inline-block',
             fontWeight: '500',
-            border: '1px solid #d1d5db',
+            border: `1px solid ${data.employmentType ? '#d1d5db' : '#e5e7eb'}`,
+            minHeight: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
-          {data.employmentType}
+          {data.employmentType || 'نوع مشخص نشده'}
         </div>
-      ) : null}
 
-      {/* آمار */}
-      {total > 0 && (
+        {/* آمار کلی - همیشه نمایش داده می‌شود */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '10px' }}>
           <div
             style={{
               fontSize: '16px',
               fontWeight: '700',
-              color: '#3b82f6',
-              background: 'linear-gradient(135deg, #eff6ff, #dbeafe)',
+              color: total > 0 ? '#3b82f6' : '#9ca3af',
+              background: total > 0 ? 'linear-gradient(135deg, #eff6ff, #dbeafe)' : 'linear-gradient(135deg, #f9fafb, #f3f4f6)',
               padding: '8px 12px',
               borderRadius: '10px',
-              border: '2px solid #bfdbfe',
-              boxShadow: '0 2px 6px rgba(59, 130, 246, 0.1)',
+              border: `2px solid ${total > 0 ? '#bfdbfe' : '#e5e7eb'}`,
+              boxShadow: total > 0 ? '0 2px 6px rgba(59, 130, 246, 0.1)' : 'none',
+              minHeight: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}
           >
-            {total} نفر
+            {total > 0 ? `${total} نفر` : 'بدون کارمند'}
           </div>
 
+          {/* نمایش جزئیات آمار */}
+          {showDetails && (
+            <div style={{ 
+              marginTop: '8px', 
+              padding: '8px', 
+              background: 'rgba(249, 250, 251, 0.8)', 
+              borderRadius: '8px',
+              border: '1px solid #e5e7eb'
+            }}>
+              <div style={{ fontSize: '11px', fontWeight: '600', color: '#374151', marginBottom: '6px' }}>
+                آمار تفصیلی:
+              </div>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '4px' }}>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px',
+                  fontSize: '10px',
+                  color: counts.official > 0 ? '#10b981' : '#9ca3af',
+                  fontWeight: '600',
+                  padding: '2px 4px',
+                  backgroundColor: counts.official > 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                  borderRadius: '4px',
+                }}>
+                  <div style={{ 
+                    width: '4px', 
+                    height: '4px', 
+                    backgroundColor: counts.official > 0 ? '#10b981' : '#9ca3af', 
+                    borderRadius: '50%' 
+                  }} />
+                  {counts.official || 0} {counts.official > 0 ? `(${getPercentage(counts.official)}%)` : ''}
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px',
+                  fontSize: '10px',
+                  color: counts.contract > 0 ? '#3b82f6' : '#9ca3af',
+                  fontWeight: '600',
+                  padding: '2px 4px',
+                  backgroundColor: counts.contract > 0 ? 'rgba(59, 130, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                  borderRadius: '4px',
+                }}>
+                  <div style={{ 
+                    width: '4px', 
+                    height: '4px', 
+                    backgroundColor: counts.contract > 0 ? '#3b82f6' : '#9ca3af', 
+                    borderRadius: '50%' 
+                  }} />
+                  {counts.contract || 0} {counts.contract > 0 ? `(${getPercentage(counts.contract)}%)` : ''}
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px',
+                  fontSize: '10px',
+                  color: counts.retired > 0 ? '#f59e0b' : '#9ca3af',
+                  fontWeight: '600',
+                  padding: '2px 4px',
+                  backgroundColor: counts.retired > 0 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                  borderRadius: '4px',
+                }}>
+                  <div style={{ 
+                    width: '4px', 
+                    height: '4px', 
+                    backgroundColor: counts.retired > 0 ? '#f59e0b' : '#9ca3af', 
+                    borderRadius: '50%' 
+                  }} />
+                  {counts.retired || 0} {counts.retired > 0 ? `(${getPercentage(counts.retired)}%)` : ''}
+                </div>
+
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '3px',
+                  fontSize: '10px',
+                  color: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af',
+                  fontWeight: '600',
+                  padding: '2px 4px',
+                  backgroundColor: counts.partTime > 0 ? 'rgba(139, 92, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                  borderRadius: '4px',
+                }}>
+                  <div style={{ 
+                    width: '4px', 
+                    height: '4px', 
+                    backgroundColor: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af', 
+                    borderRadius: '50%' 
+                  }} />
+                  {counts.partTime || 0} {counts.partTime > 0 ? `(${getPercentage(counts.partTime)}%)` : ''}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* نمایش آمار خلاصه - همیشه نمایش داده می‌شود */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '4px', marginTop: '6px' }}>
-            {(counts.official ?? 0) > 0 && (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '3px',
-                  fontSize: '11px',
-                  color: '#10b981',
-                  fontWeight: '600',
-                  padding: '3px 6px',
-                  backgroundColor: 'rgba(16, 185, 129, 0.1)',
-                  borderRadius: '5px',
-                }}
-              >
-                <div style={{ width: '6px', height: '6px', backgroundColor: '#10b981', borderRadius: '50%' }} />
-                {counts.official} نظامی
-              </div>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                fontSize: '11px',
+                color: counts.official > 0 ? '#10b981' : '#9ca3af',
+                fontWeight: '600',
+                padding: '3px 6px',
+                backgroundColor: counts.official > 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                borderRadius: '5px',
+                minHeight: '24px',
+                justifyContent: 'center'
+              }}
+            >
+              <div style={{ 
+                width: '6px', 
+                height: '6px', 
+                backgroundColor: counts.official > 0 ? '#10b981' : '#9ca3af', 
+                borderRadius: '50%' 
+              }} />
+              {counts.official || 0} نظامی
+            </div>
 
-            {(counts.contract ?? 0) > 0 && (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '3px',
-                  fontSize: '11px',
-                  color: '#3b82f6',
-                  fontWeight: '600',
-                  padding: '3px 6px',
-                  backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                  borderRadius: '5px',
-                }}
-              >
-                <div style={{ width: '6px', height: '6px', backgroundColor: '#3b82f6', borderRadius: '50%' }} />
-                {counts.contract} قراردادی
-              </div>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                fontSize: '11px',
+                color: counts.contract > 0 ? '#3b82f6' : '#9ca3af',
+                fontWeight: '600',
+                padding: '3px 6px',
+                backgroundColor: counts.contract > 0 ? 'rgba(59, 130, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                borderRadius: '5px',
+                minHeight: '24px',
+                justifyContent: 'center'
+              }}
+            >
+              <div style={{ 
+                width: '6px', 
+                height: '6px', 
+                backgroundColor: counts.contract > 0 ? '#3b82f6' : '#9ca3af', 
+                borderRadius: '50%' 
+              }} />
+              {counts.contract || 0} قراردادی
+            </div>
 
-            {(counts.retired ?? 0) > 0 && (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '3px',
-                  fontSize: '11px',
-                  color: '#f59e0b',
-                  fontWeight: '600',
-                  padding: '3px 6px',
-                  backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                  borderRadius: '5px',
-                }}
-              >
-                <div style={{ width: '6px', height: '6px', backgroundColor: '#f59e0b', borderRadius: '50%' }} />
-                {counts.retired} بازنشسته
-              </div>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                fontSize: '11px',
+                color: counts.retired > 0 ? '#f59e0b' : '#9ca3af',
+                fontWeight: '600',
+                padding: '3px 6px',
+                backgroundColor: counts.retired > 0 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                borderRadius: '5px',
+                minHeight: '24px',
+                justifyContent: 'center'
+              }}
+            >
+              <div style={{ 
+                width: '6px', 
+                height: '6px', 
+                backgroundColor: counts.retired > 0 ? '#f59e0b' : '#9ca3af', 
+                borderRadius: '50%' 
+              }} />
+              {counts.retired || 0} بازنشسته
+            </div>
 
-            {(counts.partTime ?? 0) > 0 && (
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '3px',
-                  fontSize: '11px',
-                  color: '#8b5cf6',
-                  fontWeight: '600',
-                  padding: '3px 6px',
-                  backgroundColor: 'rgba(139, 92, 246, 0.1)',
-                  borderRadius: '5px',
-                }}
-              >
-                <div style={{ width: '6px', height: '6px', backgroundColor: '#8b5cf6', borderRadius: '50%' }} />
-                {counts.partTime} پاره‌وقت
-              </div>
-            )}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                fontSize: '11px',
+                color: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af',
+                fontWeight: '600',
+                padding: '3px 6px',
+                backgroundColor: counts.partTime > 0 ? 'rgba(139, 92, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                borderRadius: '5px',
+                minHeight: '24px',
+                justifyContent: 'center'
+              }}
+            >
+              <div style={{ 
+                width: '6px', 
+                height: '6px', 
+                backgroundColor: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af', 
+                borderRadius: '50%' 
+              }} />
+              {counts.partTime || 0} پاره‌وقت
+            </div>
+          </div>
+
+          {/* راهنمای دابل کلیک */}
+          <div style={{
+            fontSize: '9px',
+            color: '#9ca3af',
+            marginTop: '4px',
+            fontStyle: 'italic',
+            minHeight: '16px'
+          }}>
+            دابل کلیک برای جزئیات
           </div>
         </div>
-      )}
+      </div>
 
       {/* نشانگر فرزندان */}
       {Array.isArray(data.children) && data.children.length > 0 && (
@@ -309,9 +467,9 @@ const nodeTypes = { orgNode: OrgNode };
 const makeNodeId = (pathArr) => (pathArr.length === 0 ? 'root' : pathArr.join('-'));
 
 // محاسبه پهنای زیردرخت برای چیدمان
-const SUBTREE_NODE_WIDTH = 280;
+const SUBTREE_NODE_WIDTH = 320;
 const H_SPACING = 20;
-const V_SPACING = 180;
+const V_SPACING = 380;
 
 function calcSubtreeWidth(node) {
   if (!node?.children || node.children.length === 0) return SUBTREE_NODE_WIDTH;

@@ -247,6 +247,7 @@ function AppContent() {
           title={currentNode?.label || 'چارت سازمانی'}
           viewMode={viewMode}
           onToggleView={toggleView}
+          data={currentNode}
         />
         
         <Breadcrumb 

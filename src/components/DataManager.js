@@ -27,6 +27,9 @@ export class DataManager {
       // اضافه کردن ID به گره‌هایی که ندارند
       this.assignIdsRecursively(this.data);
       
+      // محاسبه داینامیک counts بر اساس children
+      this.calculateCountsRecursively(this.data);
+      
       return this.data;
     } catch (error) {
       console.error('خطا در بارگذاری داده‌ها:', error);
@@ -275,5 +278,56 @@ export class DataManager {
     traverse(this.data, 0);
     
     return stats;
+  }
+
+  /**
+   * محاسبه داینامیک counts برای تمام گره‌ها بر اساس تعداد children
+   * @param {Object} node - گره فعلی
+   * @returns {Object} counts محاسبه شده
+   */
+  calculateCountsRecursively(node) {
+    if (!node) return { official: 0, contract: 0, retired: 0, partTime: 0 };
+
+    // اگر گره children ندارد، counts صفر برگردان
+    if (!node.children || node.children.length === 0) {
+      return { official: 0, contract: 0, retired: 0, partTime: 0 };
+    }
+
+    // محاسبه counts بر اساس تعداد children
+    let totalCounts = { official: 0, contract: 0, retired: 0, partTime: 0 };
+    
+    // هر child به عنوان یک کارمند در نظر گرفته می‌شود
+    node.children.forEach(child => {
+      // اگر child دارای employmentType باشد، بر اساس آن محاسبه می‌شود
+      if (child.employmentType) {
+        if (child.employmentType.includes('نظامی') || child.employmentType.includes('رسمی')) {
+          totalCounts.official += 1;
+        } else if (child.employmentType.includes('قراردادی')) {
+          totalCounts.contract += 1;
+        } else if (child.employmentType.includes('بازنشسته')) {
+          totalCounts.retired += 1;
+        } else if (child.employmentType.includes('پاره‌وقت')) {
+          totalCounts.partTime += 1;
+        } else {
+          // اگر نوع مشخص نشده، به عنوان رسمی در نظر گرفته می‌شود
+          totalCounts.official += 1;
+        }
+      } else {
+        // اگر employmentType ندارد، به عنوان رسمی در نظر گرفته می‌شود
+        totalCounts.official += 1;
+      }
+
+      // محاسبه counts برای children های این child
+      const childCounts = this.calculateCountsRecursively(child);
+      totalCounts.official += childCounts.official || 0;
+      totalCounts.contract += childCounts.contract || 0;
+      totalCounts.retired += childCounts.retired || 0;
+      totalCounts.partTime += childCounts.partTime || 0;
+    });
+
+    // به‌روزرسانی counts گره
+    node.counts = totalCounts;
+    
+    return totalCounts;
   }
 }
