@@ -14,7 +14,7 @@ export class DataManager {
 
   async loadData() {
     try {
-      const response = await fetch('/data.json');
+      const response = await fetch(`${process.env.PUBLIC_URL}/data.json`);
       if (!response.ok) {
         throw new Error('خطا در بارگذاری داده‌ها');
       }
