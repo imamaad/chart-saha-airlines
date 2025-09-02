@@ -4,7 +4,6 @@ services:
     image: chart-saha-airlines:latest
     container_name: chart-saha-airlines
     restart: unless-stopped
-    ports:
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost/ | grep -qi '<!doctype html>' || exit 1"]
       interval: 30s
