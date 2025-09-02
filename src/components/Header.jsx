@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-export const Header = ({ title, viewMode, onToggleView, data }) => {
+export const Header = ({ title, viewMode, onToggleView, data, onOpenMenu }) => {
   // وضعیت آمار برای هدر از انتخاب/هاور
   const [headerStats, setHeaderStats] = useState({
     capacity: 0,
@@ -61,6 +61,27 @@ export const Header = ({ title, viewMode, onToggleView, data }) => {
           alignItems: 'center',
           gap: '12px'
         }}>
+          <button
+            onClick={onOpenMenu}
+            title="منو"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '44px',
+              height: '44px',
+              background: 'rgba(255, 255, 255, 0.2)',
+              color: 'white',
+              border: '1px solid rgba(255,255,255,0.3)',
+              borderRadius: '12px',
+              cursor: 'pointer',
+              backdropFilter: 'blur(10px)'
+            }}
+          >
+            <svg style={{ width: '22px', height: '22px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
           <div style={{
             padding: '12px',
             background: 'rgba(255, 255, 255, 0.2)',

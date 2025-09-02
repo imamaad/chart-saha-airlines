@@ -6,6 +6,8 @@ import { ListRenderer } from './components/ListRenderer';
 import { Breadcrumb } from './components/Breadcrumb';
 import { ErrorHandler } from './components/ErrorHandler';
 import { Header } from './components/Header';
+import { Login } from './components/Login';
+import { SideMenu } from './components/SideMenu';
 
 // کامپوننت اصلی که routing را مدیریت می‌کند
 function App() {
@@ -24,6 +26,8 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [authUser, setAuthUser] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const dataManager = new DataManager();
   const errorHandler = new ErrorHandler();
@@ -32,6 +36,16 @@ function AppContent() {
 
   useEffect(() => {
     loadData();
+  }, []);
+
+  // بازیابی وضعیت ورود از localStorage
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('authUser');
+      if (stored) {
+        setAuthUser(JSON.parse(stored));
+      }
+    } catch {}
   }, []);
 
   useEffect(() => {
@@ -68,6 +82,21 @@ function AppContent() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleLogin = (user) => {
+    setAuthUser(user);
+    try {
+      localStorage.setItem('authUser', JSON.stringify(user));
+    } catch {}
+  };
+
+  const handleLogout = () => {
+    setAuthUser(null);
+    try {
+      localStorage.removeItem('authUser');
+    } catch {}
+    setIsMenuOpen(false);
   };
 
   const updateBreadcrumb = () => {
@@ -131,6 +160,11 @@ function AppContent() {
       updateTitle(currentNode.label);
     }
   }, [currentNode]);
+
+  // اگر کاربر وارد نشده باشد، فقط صفحه ورود نمایش داده شود
+  if (!authUser) {
+    return <Login onLogin={handleLogin} />;
+  }
 
   if (isLoading) {
     return (
@@ -248,7 +282,9 @@ function AppContent() {
           viewMode={viewMode}
           onToggleView={toggleView}
           data={currentNode}
+          onOpenMenu={() => setIsMenuOpen(true)}
         />
+        <SideMenu open={isMenuOpen} onClose={() => setIsMenuOpen(false)} onLogout={handleLogout} user={authUser} />
         
         <Breadcrumb 
           path={breadcrumb}
