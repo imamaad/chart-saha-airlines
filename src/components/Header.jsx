@@ -1,23 +1,43 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 export const Header = ({ title, viewMode, onToggleView, data }) => {
-  // محاسبه آمار کلی
-  const getTotalStats = () => {
-    if (!data || !data.counts) return { official: 0, contract: 0, retired: 0, partTime: 0, total: 0 };
-    
-    const counts = data.counts;
-    const total = (counts.official || 0) + (counts.contract || 0) + (counts.retired || 0) + (counts.partTime || 0);
-    
-    return {
-      official: counts.official || 0,
-      contract: counts.contract || 0,
-      retired: counts.retired || 0,
-      partTime: counts.partTime || 0,
-      total
-    };
-  };
+  // وضعیت آمار برای هدر از انتخاب/هاور
+  const [headerStats, setHeaderStats] = useState({
+    capacity: 0,
+    totalPersonnel: 0,
+    employee: 0,
+    contractor: 0,
+    military: 0,
+    retired: 0,
+    retiredMilitary: 0,
+    label: title || 'چارت سازمانی',
+  });
 
-  const stats = getTotalStats();
+  // گوش دادن به رویدادهای چارت
+  useEffect(() => {
+    const onSelected = (e) => {
+      if (!e?.detail) return;
+      const { node, stats } = e.detail;
+      setHeaderStats({ ...stats, label: node?.label || (title || 'چارت سازمانی') });
+    };
+    const onHover = (e) => {
+      if (!e?.detail) return;
+      const { node, stats } = e.detail;
+      setHeaderStats({ ...stats, label: node?.label || (title || 'چارت سازمانی') });
+    };
+    window.addEventListener('chart:selectedStats', onSelected);
+    window.addEventListener('chart:hoverStats', onHover);
+    return () => {
+      window.removeEventListener('chart:selectedStats', onSelected);
+      window.removeEventListener('chart:hoverStats', onHover);
+    };
+  }, [title]);
+
+  // اگر هنوز رویدادی نیامده، از داده‌ی اولیه برای نمایش پایه‌ای استفاده کن
+  const initialStats = useMemo(() => {
+    if (!data) return headerStats;
+    return headerStats;
+  }, [data, headerStats]);
 
   return (
     <div style={{
@@ -57,7 +77,7 @@ export const Header = ({ title, viewMode, onToggleView, data }) => {
               fontWeight: '700',
               margin: '0 0 4px 0'
             }}>
-              {title || 'چارت سازمانی'}
+              {initialStats.label}
             </h1>
             <p style={{
               color: '#bfdbfe',
@@ -67,10 +87,10 @@ export const Header = ({ title, viewMode, onToggleView, data }) => {
               شرکت هواپیمایی ساها
             </p>
             
-            {/* نمایش آمار کلی */}
+            {/* نمایش آمار کلی انتخاب/هاور */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(5, 1fr)',
+              gridTemplateColumns: 'repeat(7, 1fr)',
               gap: '8px',
               marginTop: '12px'
             }}>
@@ -81,19 +101,19 @@ export const Header = ({ title, viewMode, onToggleView, data }) => {
                 textAlign: 'center',
                 backdropFilter: 'blur(10px)'
               }}>
-                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.total}</div>
-                <div style={{ fontSize: '10px', opacity: '0.9' }}>کل</div>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{initialStats.capacity}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>ظرفیت</div>
               </div>
               
               <div style={{
-                background: 'rgba(16, 185, 129, 0.2)',
+                background: 'rgba(255, 255, 255, 0.15)',
                 padding: '8px',
                 borderRadius: '8px',
                 textAlign: 'center',
                 backdropFilter: 'blur(10px)'
               }}>
-                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.official}</div>
-                <div style={{ fontSize: '10px', opacity: '0.9' }}>رسمی</div>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{initialStats.totalPersonnel}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>کل پرسنل</div>
               </div>
               
               <div style={{
@@ -103,10 +123,32 @@ export const Header = ({ title, viewMode, onToggleView, data }) => {
                 textAlign: 'center',
                 backdropFilter: 'blur(10px)'
               }}>
-                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.contract}</div>
-                <div style={{ fontSize: '10px', opacity: '0.9' }}>قراردادی</div>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{initialStats.employee}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>کارمند</div>
               </div>
               
+              <div style={{
+                background: 'rgba(59, 130, 246, 0.2)',
+                padding: '8px',
+                borderRadius: '8px',
+                textAlign: 'center',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{initialStats.contractor}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>قرار دادی</div>
+              </div>
+              
+              <div style={{
+                background: 'rgba(16, 185, 129, 0.2)',
+                padding: '8px',
+                borderRadius: '8px',
+                textAlign: 'center',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{initialStats.military}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>نظامی</div>
+              </div>
+
               <div style={{
                 background: 'rgba(245, 158, 11, 0.2)',
                 padding: '8px',
@@ -114,19 +156,19 @@ export const Header = ({ title, viewMode, onToggleView, data }) => {
                 textAlign: 'center',
                 backdropFilter: 'blur(10px)'
               }}>
-                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.retired}</div>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{initialStats.retired}</div>
                 <div style={{ fontSize: '10px', opacity: '0.9' }}>بازنشسته</div>
               </div>
-              
+
               <div style={{
-                background: 'rgba(139, 92, 246, 0.2)',
+                background: 'rgba(245, 158, 11, 0.2)',
                 padding: '8px',
                 borderRadius: '8px',
                 textAlign: 'center',
                 backdropFilter: 'blur(10px)'
               }}>
-                <div style={{ fontSize: '18px', fontWeight: '700' }}>{stats.partTime}</div>
-                <div style={{ fontSize: '10px', opacity: '0.9' }}>پاره‌وقت</div>
+                <div style={{ fontSize: '18px', fontWeight: '700' }}>{initialStats.retiredMilitary}</div>
+                <div style={{ fontSize: '10px', opacity: '0.9' }}>بازنشسته - نظامی</div>
               </div>
             </div>
           </div>

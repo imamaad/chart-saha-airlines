@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from 'react';
 
 export const ListRenderer = ({ data, onRowClick }) => {
-  const [sortField, setSortField] = useState('label');
+  const [sortField, setSortField] = useState('orgIndex');
   const [sortDirection, setSortDirection] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
-
+  
   const { analysis, tableData } = useMemo(() => {
     if (!data) return { analysis: null, tableData: [] };
 
@@ -75,36 +75,15 @@ export const ListRenderer = ({ data, onRowClick }) => {
     };
   }, [data]);
 
-  // فیلتر و مرتب‌سازی
+  // فیلتر (بدون مرتب‌سازی؛ ترتیب اصلی داده حفظ می‌شود)
   const filteredAndSortedData = useMemo(() => {
-    let filtered = tableData.filter(item => 
+    const base = tableData;
+    const filtered = base.filter(item =>
       item.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
-
-    filtered.sort((a, b) => {
-      let aVal = a[sortField];
-      let bVal = b[sortField];
-      
-      if (sortField === 'total') {
-        aVal = a.total || 0;
-        bVal = b.total || 0;
-      }
-      
-      if (typeof aVal === 'string') {
-        aVal = aVal.toLowerCase();
-        bVal = bVal.toLowerCase();
-      }
-      
-      if (sortDirection === 'asc') {
-        return aVal > bVal ? 1 : -1;
-      } else {
-        return aVal < bVal ? 1 : -1;
-      }
-    });
-
     return filtered;
-  }, [tableData, searchTerm, sortField, sortDirection]);
+  }, [tableData, searchTerm]);
 
   const handleSort = (field) => {
     if (sortField === field) {
@@ -152,74 +131,15 @@ export const ListRenderer = ({ data, onRowClick }) => {
   ];
 
   const getSortIcon = (field) => {
-    if (sortField !== field) return null;
-    return sortDirection === 'asc' ? '↑' : '↓';
+    return null;
   };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* آمار کلی */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-        gap: '16px'
-      }}>
-        <div style={{
-          background: 'linear-gradient(to right, #10b981, #059669)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.official}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>نظامی و رسمی</div>
-        </div>
-        <div style={{
-          background: 'linear-gradient(to right, #3b82f6, #2563eb)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.contract}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>قراردادی</div>
-        </div>
-        <div style={{
-          background: 'linear-gradient(to right, #f59e0b, #d97706)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.retired}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>بازنشسته</div>
-        </div>
-        <div style={{
-          background: 'linear-gradient(to right, #8b5cf6, #7c3aed)',
-          color: 'white',
-          borderRadius: '12px',
-          padding: '16px'
-        }}>
-          <div style={{ fontSize: '24px', fontWeight: '700' }}>{sum.partTime}</div>
-          <div style={{ fontSize: '14px', opacity: 0.9 }}>پاره‌وقت</div>
-        </div>
-      </div>
-
       {/* کنترل‌های جدول */}
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px'
-      }}>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '16px',
-          alignItems: 'flex-start'
-        }}>
-          <div style={{
-            position: 'relative',
-            flex: '1',
-            maxWidth: '400px',
-            width: '100%'
-          }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'flex-start' }}>
+          <div style={{ position: 'relative', flex: '1', maxWidth: '100%', width: '100%' }}>
             <input
               type="text"
               placeholder="جستجو در عناوین و نام‌ها..."
@@ -227,7 +147,7 @@ export const ListRenderer = ({ data, onRowClick }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
                 width: '100%',
-                padding: '12px 40px 12px 16px',
+                padding: '12px 16px',
                 border: '1px solid #d1d5db',
                 borderRadius: '8px',
                 fontSize: '14px',
@@ -243,28 +163,6 @@ export const ListRenderer = ({ data, onRowClick }) => {
                 e.target.style.boxShadow = 'none';
               }}
             />
-            <svg style={{
-              position: 'absolute',
-              left: '12px',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              width: '20px',
-              height: '20px',
-              color: '#9ca3af'
-            }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-          
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-            fontSize: '14px',
-            color: '#6b7280'
-          }}>
-            <span>تعداد نتایج:</span>
-            <span style={{ fontWeight: '600', color: '#3b82f6' }}>{filteredAndSortedData.length}</span>
           </div>
         </div>
       </div>
@@ -310,7 +208,7 @@ export const ListRenderer = ({ data, onRowClick }) => {
                         e.target.style.backgroundColor = 'transparent';
                       }
                     }}
-                    onClick={() => header.sortable && handleSort(header.key)}
+                    onClick={() => {}}
                   >
                     <div style={{
                       display: 'flex',
@@ -510,127 +408,7 @@ export const ListRenderer = ({ data, onRowClick }) => {
             </tr>
           ))}
             </tbody>
-            <tfoot style={{
-              background: 'linear-gradient(to right, #f9fafb, #f3f4f6)'
-            }}>
-              <tr>
-                <td style={{
-                  padding: '16px',
-                  fontWeight: '700',
-                  color: '#374151',
-                  borderBottom: '1px solid #e5e7eb'
-                }} colSpan={2}>
-                  مجموع کل
-                </td>
-                {flags.name && <td style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}></td>}
-                {flags.type && <td style={{ padding: '16px', borderBottom: '1px solid #e5e7eb' }}></td>}
-                {flags.official && (
-                  <td style={{
-                    padding: '16px',
-                    textAlign: 'center',
-                    borderBottom: '1px solid #e5e7eb'
-                  }}>
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      background: '#10b981',
-                      color: 'white',
-                      fontWeight: '700'
-                    }}>
-                      {sum.official}
-                    </span>
-                  </td>
-                )}
-                {flags.contract && (
-                  <td style={{
-                    padding: '16px',
-                    textAlign: 'center',
-                    borderBottom: '1px solid #e5e7eb'
-                  }}>
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      background: '#3b82f6',
-                      color: 'white',
-                      fontWeight: '700'
-                    }}>
-                      {sum.contract}
-                    </span>
-                  </td>
-                )}
-                {flags.retired && (
-                  <td style={{
-                    padding: '16px',
-                    textAlign: 'center',
-                    borderBottom: '1px solid #e5e7eb'
-                  }}>
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      background: '#f59e0b',
-                      color: 'white',
-                      fontWeight: '700'
-                    }}>
-                      {sum.retired}
-                    </span>
-                  </td>
-                )}
-                {flags.partTime && (
-                  <td style={{
-                    padding: '16px',
-                    textAlign: 'center',
-                    borderBottom: '1px solid #e5e7eb'
-                  }}>
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '50%',
-                      background: '#8b5cf6',
-                      color: 'white',
-                      fontWeight: '700'
-                    }}>
-                      {sum.partTime}
-                    </span>
-                  </td>
-                )}
-                {flags.total && (
-                  <td style={{
-                    padding: '16px',
-                    textAlign: 'center',
-                    borderBottom: '1px solid #e5e7eb'
-                  }}>
-                    <span style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: '8px 16px',
-                      borderRadius: '12px',
-                      background: '#374151',
-                      color: 'white',
-                      fontWeight: '700',
-                      fontSize: '18px'
-                    }}>
-                      {sum.total}
-                    </span>
-                  </td>
-                )}
-          </tr>
-            </tfoot>
+            
       </table>
         </div>
       </div>

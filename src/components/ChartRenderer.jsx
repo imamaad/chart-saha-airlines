@@ -16,12 +16,13 @@ const OrgNode = React.memo(function OrgNode({ data }) {
   const [hovered, setHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
-  const counts = data.counts || {};
+  const counts = data.subtreeStats || data.counts || {};
   const total =
-    (counts.official || 0) +
-    (counts.contract || 0) +
+    (counts.military || counts.official || 0) +
+    (counts.contractor || counts.contract || 0) +
+    (counts.employee || 0) +
     (counts.retired || 0) +
-    (counts.partTime || 0);
+    (counts.retiredMilitary || 0);
 
   const getLevelColor = (level) => {
     const colors = [
@@ -286,26 +287,6 @@ const OrgNode = React.memo(function OrgNode({ data }) {
                   }} />
                   {counts.retired || 0} {counts.retired > 0 ? `(${getPercentage(counts.retired)}%)` : ''}
                 </div>
-
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '3px',
-                  fontSize: '10px',
-                  color: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af',
-                  fontWeight: '600',
-                  padding: '2px 4px',
-                  backgroundColor: counts.partTime > 0 ? 'rgba(139, 92, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)',
-                  borderRadius: '4px',
-                }}>
-                  <div style={{ 
-                    width: '4px', 
-                    height: '4px', 
-                    backgroundColor: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af', 
-                    borderRadius: '50%' 
-                  }} />
-                  {counts.partTime || 0} {counts.partTime > 0 ? `(${getPercentage(counts.partTime)}%)` : ''}
-                </div>
               </div>
             </div>
           )}
@@ -318,10 +299,10 @@ const OrgNode = React.memo(function OrgNode({ data }) {
                 alignItems: 'center',
                 gap: '3px',
                 fontSize: '11px',
-                color: counts.official > 0 ? '#10b981' : '#9ca3af',
+                color: (counts.military || counts.official) > 0 ? '#10b981' : '#9ca3af',
                 fontWeight: '600',
                 padding: '3px 6px',
-                backgroundColor: counts.official > 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                backgroundColor: (counts.military || counts.official) > 0 ? 'rgba(16, 185, 129, 0.1)' : 'rgba(156, 163, 175, 0.1)',
                 borderRadius: '5px',
                 minHeight: '24px',
                 justifyContent: 'center'
@@ -330,10 +311,10 @@ const OrgNode = React.memo(function OrgNode({ data }) {
               <div style={{ 
                 width: '6px', 
                 height: '6px', 
-                backgroundColor: counts.official > 0 ? '#10b981' : '#9ca3af', 
+                backgroundColor: (counts.military || counts.official) > 0 ? '#10b981' : '#9ca3af', 
                 borderRadius: '50%' 
               }} />
-              {counts.official || 0} نظامی
+              {(counts.military ?? counts.official ?? 0)} نظامی
             </div>
 
             <div
@@ -342,7 +323,7 @@ const OrgNode = React.memo(function OrgNode({ data }) {
                 alignItems: 'center',
                 gap: '3px',
                 fontSize: '11px',
-                color: counts.contract > 0 ? '#3b82f6' : '#9ca3af',
+                color: (counts.contractor || counts.contract) > 0 ? '#3b82f6' : '#9ca3af',
                 fontWeight: '600',
                 padding: '3px 6px',
                 backgroundColor: counts.contract > 0 ? 'rgba(59, 130, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)',
@@ -357,7 +338,31 @@ const OrgNode = React.memo(function OrgNode({ data }) {
                 backgroundColor: counts.contract > 0 ? '#3b82f6' : '#9ca3af', 
                 borderRadius: '50%' 
               }} />
-              {counts.contract || 0} قراردادی
+              {(counts.contractor ?? counts.contract ?? 0)} قراردادی
+            </div>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '3px',
+                fontSize: '11px',
+                color: (counts.employee || 0) > 0 ? '#2563eb' : '#9ca3af',
+                fontWeight: '600',
+                padding: '3px 6px',
+                backgroundColor: (counts.employee || 0) > 0 ? 'rgba(37, 99, 235, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                borderRadius: '5px',
+                minHeight: '24px',
+                justifyContent: 'center'
+              }}
+            >
+              <div style={{ 
+                width: '6px', 
+                height: '6px', 
+                backgroundColor: (counts.employee || 0) > 0 ? '#2563eb' : '#9ca3af', 
+                borderRadius: '50%' 
+              }} />
+              {counts.employee || 0} کارمند
             </div>
 
             <div
@@ -390,10 +395,10 @@ const OrgNode = React.memo(function OrgNode({ data }) {
                 alignItems: 'center',
                 gap: '3px',
                 fontSize: '11px',
-                color: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af',
+                color: (counts.retiredMilitary || 0) > 0 ? '#f59e0b' : '#9ca3af',
                 fontWeight: '600',
                 padding: '3px 6px',
-                backgroundColor: counts.partTime > 0 ? 'rgba(139, 92, 246, 0.1)' : 'rgba(156, 163, 175, 0.1)',
+                backgroundColor: (counts.retiredMilitary || 0) > 0 ? 'rgba(245, 158, 11, 0.1)' : 'rgba(156, 163, 175, 0.1)',
                 borderRadius: '5px',
                 minHeight: '24px',
                 justifyContent: 'center'
@@ -402,10 +407,10 @@ const OrgNode = React.memo(function OrgNode({ data }) {
               <div style={{ 
                 width: '6px', 
                 height: '6px', 
-                backgroundColor: counts.partTime > 0 ? '#8b5cf6' : '#9ca3af', 
+                backgroundColor: (counts.retiredMilitary || 0) > 0 ? '#f59e0b' : '#9ca3af', 
                 borderRadius: '50%' 
               }} />
-              {counts.partTime || 0} پاره‌وقت
+              {counts.retiredMilitary || 0} بازنشسته - نظامی
             </div>
           </div>
 
@@ -469,7 +474,7 @@ const makeNodeId = (pathArr) => (pathArr.length === 0 ? 'root' : pathArr.join('-
 // محاسبه پهنای زیردرخت برای چیدمان
 const SUBTREE_NODE_WIDTH = 320;
 const H_SPACING = 20;
-const V_SPACING = 380;
+const V_SPACING = 400;
 
 function calcSubtreeWidth(node) {
   if (!node?.children || node.children.length === 0) return SUBTREE_NODE_WIDTH;
@@ -481,12 +486,41 @@ function calcSubtreeWidth(node) {
   return Math.max(total, SUBTREE_NODE_WIDTH);
 }
 
+// محاسبه آمار زیردرخت برای یک نود (Hoisted)
+function computeStatsFor(rootNode) {
+  const acc = {
+    capacity: 0,
+    totalPersonnel: 0,
+    employee: 0,
+    contractor: 0,
+    military: 0,
+    retired: 0,
+    retiredMilitary: 0,
+  };
+  if (!rootNode) return acc;
+  const walkStats = (node) => {
+    if (!node) return;
+    acc.capacity += 1;
+    if (node.name && String(node.name).trim().length > 0) acc.totalPersonnel += 1;
+    const type = node.employmentType || '';
+    if (type === 'کارمند') acc.employee += 1;
+    if (type === 'قرار دادی') acc.contractor += 1;
+    if (type === 'نظامی') acc.military += 1;
+    if (type === 'بازنشسته') acc.retired += 1;
+    if (type === 'بازنشسته - نظامی') acc.retiredMilitary += 1;
+    if (Array.isArray(node.children)) node.children.forEach(walkStats);
+  };
+  walkStats(rootNode);
+  return acc;
+}
+
 /* --------------------------- Inner Component --------------------------- */
 const ChartRendererInner = ({ data, onNodeClick }) => {
   const { fitView, getNode } = useReactFlow();
   const rfRef = useRef(null);
   const containerRef = useRef(null); // مرجع به کانتینر برای فول‌اسکرین
   const [hoveredNode, setHoveredNode] = useState(null);
+  const [selectedNode, setSelectedNode] = useState(data || null);
 
     // دکمه‌ی فول‌اسکرین
     const handleFullscreen = () => {
@@ -555,7 +589,11 @@ const ChartRendererInner = ({ data, onNodeClick }) => {
           ...node,
           level,
           parentId: path.length ? makeNodeId(path.slice(0, -1)) : null,
-          onNodeClick: () => onNodeClick?.(node),
+          subtreeStats: computeStatsFor(node),
+          onNodeClick: () => {
+            setSelectedNode(node);
+            onNodeClick?.(node);
+          },
           onMouseEnter: () => setHoveredNode(node),
           onMouseLeave: () => setHoveredNode(null),
         },
@@ -567,6 +605,22 @@ const ChartRendererInner = ({ data, onNodeClick }) => {
 
     return { nodes: nodesAcc, edges: edgesAcc };
   }, [data, onNodeClick]);
+
+  // محاسبه آمار زیردرخت انتخاب‌شده
+  const subtreeStats = useMemo(() => computeStatsFor(selectedNode), [selectedNode]);
+
+  // انتشار آمار انتخابی و هاور به صورت رویداد سفارشی
+  useEffect(() => {
+    const detail = { node: selectedNode, stats: subtreeStats };
+    const event = new CustomEvent('chart:selectedStats', { detail });
+    window.dispatchEvent(event);
+  }, [selectedNode, subtreeStats]);
+
+  useEffect(() => {
+    const detail = hoveredNode ? { node: hoveredNode, stats: computeStatsFor(hoveredNode) } : null;
+    const event = new CustomEvent('chart:hoverStats', { detail });
+    window.dispatchEvent(event);
+  }, [hoveredNode]);
 
   // فوکوس مطلق روی ریشه‌ی سازمانی (id = "root") بعد از رندر گراف
   const focusRoot = useRef(false);
@@ -679,7 +733,7 @@ const ChartRendererInner = ({ data, onNodeClick }) => {
               نوع: {hoveredNode.employmentType}
             </p>
           )}
-          {hoveredNode.counts && (
+          {hoveredNode && (
             <div
               style={{
                 display: 'flex',
@@ -691,26 +745,36 @@ const ChartRendererInner = ({ data, onNodeClick }) => {
                 border: '1px solid rgba(59, 130, 246, 0.1)',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
-                <span style={{ color: '#10b981', fontWeight: '600' }}>نظامی:</span>
-                <span style={{ fontWeight: '700', color: '#1f2937' }}>{hoveredNode.counts.official || 0}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
-                <span style={{ color: '#3b82f6', fontWeight: '600' }}>قراردادی:</span>
-                <span style={{ fontWeight: '700', color: '#1f2937' }}>{hoveredNode.counts.contract || 0}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
-                <span style={{ color: '#f59e0b', fontWeight: '600' }}>بازنشسته:</span>
-                <span style={{ fontWeight: '700', color: '#1f2937' }}>{hoveredNode.counts.retired || 0}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
-                <span style={{ color: '#8b5cf6', fontWeight: '600' }}>پاره‌وقت:</span>
-                <span style={{ fontWeight: '700', color: '#1f2937' }}>{hoveredNode.counts.partTime || 0}</span>
-              </div>
+              {(() => { const s = hoveredNode.subtreeStats || {}; return (
+                <>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                    <span style={{ color: '#10b981', fontWeight: '600' }}>نظامی:</span>
+                    <span style={{ fontWeight: '700', color: '#1f2937' }}>{s.military || 0}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                    <span style={{ color: '#3b82f6', fontWeight: '600' }}>قراردادی:</span>
+                    <span style={{ fontWeight: '700', color: '#1f2937' }}>{s.contractor || 0}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                    <span style={{ color: '#2563eb', fontWeight: '600' }}>کارمند:</span>
+                    <span style={{ fontWeight: '700', color: '#1f2937' }}>{s.employee || 0}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                    <span style={{ color: '#f59e0b', fontWeight: '600' }}>بازنشسته:</span>
+                    <span style={{ fontWeight: '700', color: '#1f2937' }}>{s.retired || 0}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '14px' }}>
+                    <span style={{ color: '#f59e0b', fontWeight: '600' }}>بازنشسته - نظامی:</span>
+                    <span style={{ fontWeight: '700', color: '#1f2937' }}>{s.retiredMilitary || 0}</span>
+                  </div>
+                </>
+              ); })()}
             </div>
           )}
         </div>
       )}
+
+      {/* هدر حذف شد؛ آمار از طریق رویداد به Header ارسال می‌شود */}
 
       {/* Container */}
       <div
