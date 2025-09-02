@@ -10,8 +10,8 @@ export function Login({ onLogin }) {
     setError('');
 
     // Static credentials
-    const validUser = 'admin';
-    const validPass = '123456';
+    const validUser = 'saha';
+    const validPass = 'hfjlISas@ADB124';
 
     if (username === validUser && password === validPass) {
       onLogin({ username });

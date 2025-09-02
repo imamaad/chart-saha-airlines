@@ -6,7 +6,6 @@ services:
     image: chart-saha-airlines:latest
     container_name: chart-saha-airlines
     restart: unless-stopped
-
     networks:
       - saha-network
     labels:
