@@ -267,7 +267,7 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
     };
 
     return (
-      <div style={{ padding: '8px 12px', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 8, background: selectedNode?.id === node.id ? '#eff6ff' : '#000' }}>
+      <div style={{ padding: '8px 12px', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 8, background: selectedNode?.id === node.id ? '#eff6ff' : '#fff' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {hasChildren && (
