@@ -14,7 +14,6 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('dist'));
 
 // Configure multer for file uploads
 const upload = multer({ 
@@ -22,6 +21,11 @@ const upload = multer({
   limits: {
     fileSize: 10 * 1024 * 1024 // 10MB limit
   }
+});
+
+// Health check
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', time: new Date().toISOString() });
 });
 
 // API endpoint to save data.json
@@ -60,12 +64,7 @@ app.post('/api/save-data', upload.single('data'), async (req, res) => {
   }
 });
 
-// Serve the main app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🚀 API server running on port ${PORT}`);
   console.log(`📁 Data file location: ${path.join(__dirname, 'public', 'data.json')}`);
 });
