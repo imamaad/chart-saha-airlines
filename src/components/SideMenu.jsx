@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function SideMenu({ open, onClose, onLogout, user }) {
+export function SideMenu({ open, onClose, onLogout, user, onOpenDataEditor, onOpenDataUploader, onOpenDataExporter, onOpenDataValidator }) {
   return (
     <>
       {/* Backdrop */}
@@ -60,6 +60,74 @@ export function SideMenu({ open, onClose, onLogout, user }) {
         )}
 
         <nav style={{ padding: '8px 8px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+          <button
+            onClick={onOpenDataEditor}
+            style={{
+              textAlign: 'right',
+              width: '100%',
+              padding: '10px 12px',
+              background: '#3b82f6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              marginBottom: '8px'
+            }}
+          >
+            ویرایش داده‌ها
+          </button>
+          <button
+            onClick={onOpenDataUploader}
+            style={{
+              textAlign: 'right',
+              width: '100%',
+              padding: '10px 12px',
+              background: '#10b981',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              marginBottom: '8px'
+            }}
+          >
+            آپلود فایل جدید
+          </button>
+          <button
+            onClick={onOpenDataExporter}
+            style={{
+              textAlign: 'right',
+              width: '100%',
+              padding: '10px 12px',
+              background: '#f59e0b',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              marginBottom: '8px'
+            }}
+          >
+            خروجی داده‌ها
+          </button>
+          <button
+            onClick={onOpenDataValidator}
+            style={{
+              textAlign: 'right',
+              width: '100%',
+              padding: '10px 12px',
+              background: '#8b5cf6',
+              color: 'white',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              marginBottom: '8px'
+            }}
+          >
+            اعتبارسنجی داده‌ها
+          </button>
           <button
             onClick={onLogout}
             style={{

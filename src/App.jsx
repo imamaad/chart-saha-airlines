@@ -8,6 +8,10 @@ import { ErrorHandler } from './components/ErrorHandler';
 import { Header } from './components/Header';
 import { Login } from './components/Login';
 import { SideMenu } from './components/SideMenu';
+import { DataEditor } from './components/DataEditor';
+import { DataUploader } from './components/DataUploader';
+import { DataExporter } from './components/DataExporter';
+import { DataValidator } from './components/DataValidator';
 
 // کامپوننت اصلی که routing را مدیریت می‌کند
 function App() {
@@ -28,6 +32,10 @@ function AppContent() {
   const [data, setData] = useState(null);
   const [authUser, setAuthUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showDataEditor, setShowDataEditor] = useState(false);
+  const [showDataUploader, setShowDataUploader] = useState(false);
+  const [showDataExporter, setShowDataExporter] = useState(false);
+  const [showDataValidator, setShowDataValidator] = useState(false);
 
   const dataManager = new DataManager();
   const errorHandler = new ErrorHandler();
@@ -97,6 +105,13 @@ function AppContent() {
       localStorage.removeItem('authUser');
     } catch {}
     setIsMenuOpen(false);
+  };
+
+  const handleDataChange = (newData) => {
+    setData(newData);
+    setCurrentNode(newData);
+    // محاسبه مجدد آمار
+    dataManager.calculateCountsRecursively(newData);
   };
 
   const updateBreadcrumb = () => {
@@ -284,7 +299,16 @@ function AppContent() {
           data={currentNode}
           onOpenMenu={() => setIsMenuOpen(true)}
         />
-        <SideMenu open={isMenuOpen} onClose={() => setIsMenuOpen(false)} onLogout={handleLogout} user={authUser} />
+        <SideMenu 
+          open={isMenuOpen} 
+          onClose={() => setIsMenuOpen(false)} 
+          onLogout={handleLogout} 
+          user={authUser}
+          onOpenDataEditor={() => setShowDataEditor(true)}
+          onOpenDataUploader={() => setShowDataUploader(true)}
+          onOpenDataExporter={() => setShowDataExporter(true)}
+          onOpenDataValidator={() => setShowDataValidator(true)}
+        />
         
         <Breadcrumb 
           path={breadcrumb}
@@ -315,6 +339,39 @@ function AppContent() {
           <p>© 2024 شرکت هواپیمایی ساها - چارت سازمانی داینامیک</p>
         </footer>
       </div>
+
+      {/* Data Editor Modal */}
+      {showDataEditor && (
+        <DataEditor
+          data={data}
+          onDataChange={handleDataChange}
+          onClose={() => setShowDataEditor(false)}
+        />
+      )}
+
+      {/* Data Uploader Modal */}
+      {showDataUploader && (
+        <DataUploader
+          onDataUpload={handleDataChange}
+          onClose={() => setShowDataUploader(false)}
+        />
+      )}
+
+      {/* Data Exporter Modal */}
+      {showDataExporter && (
+        <DataExporter
+          data={data}
+          onClose={() => setShowDataExporter(false)}
+        />
+      )}
+
+      {/* Data Validator Modal */}
+      {showDataValidator && (
+        <DataValidator
+          data={data}
+          onClose={() => setShowDataValidator(false)}
+        />
+      )}
     </div>
   );
 }

@@ -8,6 +8,10 @@ services:
     restart: unless-stopped
     networks:
       - saha-network
+    depends_on:
+      - chart-api
+    environment:
+      - API_BASE_URL=http://chart-api:3001
     labels:
       - "traefik.enable=true"
 
@@ -21,6 +25,20 @@ services:
 
       - "traefik.http.routers.chart_https.tls=true"
       - "traefik.http.services.chart.loadbalancer.server.port=80"
+
+  chart-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: chart-saha-airlines-api:latest
+    container_name: chart-saha-airlines-api
+    restart: unless-stopped
+    networks:
+      - saha-network
+    volumes:
+      - ./public:/app/public
+    expose:
+      - "3001"
 
 networks:
   saha-network:
