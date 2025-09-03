@@ -14,23 +14,38 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState(null);
 
+  const generateId = () => `node_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+
+  const normalizeNode = (node, parentId = '') => {
+    if (!node || typeof node !== 'object') return null;
+    const normalized = { ...node };
+    if (!normalized.id) normalized.id = generateId();
+    if (parentId) normalized.parentId = parentId;
+    if (!Array.isArray(normalized.children)) normalized.children = [];
+    normalized.children = normalized.children
+      .filter(Boolean)
+      .map((child) => normalizeNode(child, normalized.id))
+      .filter(Boolean);
+    return normalized;
+  };
+
   useEffect(() => {
     if (data) {
-      setEditingData(JSON.parse(JSON.stringify(data)));
+      const cloned = JSON.parse(JSON.stringify(data));
+      const normalized = normalizeNode(cloned);
+      setEditingData(normalized);
     }
   }, [data]);
 
-  const generateId = () => `node_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
-
   const ensureChildrenArray = (node) => {
-    if (!Array.isArray(node.children)) node.children = [];
+    if (node && !Array.isArray(node.children)) node.children = [];
   };
 
   const findNodeById = (node, id) => {
     if (!node) return null;
     if (node.id === id) return node;
     if (Array.isArray(node.children)) {
-      for (const child of node.children) {
+      for (const child of node.children.filter(Boolean)) {
         const found = findNodeById(child, id);
         if (found) return found;
       }
@@ -39,13 +54,14 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
   };
 
   const addChildToNode = (node, parentId, newChild) => {
+    if (!node) return false;
     if (node.id === parentId) {
       ensureChildrenArray(node);
       node.children.push(newChild);
       return true;
     }
     if (Array.isArray(node.children)) {
-      for (const child of node.children) {
+      for (const child of node.children.filter(Boolean)) {
         if (addChildToNode(child, parentId, newChild)) return true;
       }
     }
@@ -53,12 +69,13 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
   };
 
   const updateNodeById = (node, id, updates) => {
+    if (!node) return false;
     if (node.id === id) {
       Object.assign(node, updates);
       return true;
     }
     if (Array.isArray(node.children)) {
-      for (const child of node.children) {
+      for (const child of node.children.filter(Boolean)) {
         if (updateNodeById(child, id, updates)) return true;
       }
     }
@@ -69,11 +86,11 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
     if (!node) return false;
     if (node.id === id) {
       if (!parent) return false; // prevent deleting root
-      parent.children = (parent.children || []).filter((c) => c.id !== id);
+      parent.children = (parent.children || []).filter((c) => c && c.id !== id);
       return true;
     }
     if (Array.isArray(node.children)) {
-      for (const child of node.children) {
+      for (const child of node.children.filter(Boolean)) {
         if (deleteNodeById(node, child, id)) return true;
       }
     }
@@ -134,10 +151,10 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
             )}
           </div>
         </div>
-        {Array.isArray(node.children) && node.children.length > 0 && (
+        {Array.isArray(node.children) && node.children.filter(Boolean).length > 0 && (
           <div style={{ marginTop: 8, paddingLeft: 12, borderLeft: '2px dashed #e2e8f0' }}>
-            {node.children.map((child) => (
-              <div key={child.id}>
+            {node.children.filter(Boolean).map((child) => (
+              <div key={child.id || generateId()}>
                 {renderNode(child)}
               </div>
             ))}
@@ -189,7 +206,7 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
     const cloned = JSON.parse(JSON.stringify(editingData));
 
     if (showAddForm) {
-      const parentId = selectedNode?.id || cloned.id;
+      const parentId = selectedNode?.id || cloned?.id;
       const newNode = {
         id: generateId(),
         label: formData.label.trim(),
@@ -199,7 +216,7 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
         children: []
       };
       ensureChildrenArray(cloned);
-      if (parentId === cloned.id) {
+      if (parentId === cloned?.id) {
         cloned.children.push(newNode);
       } else {
         addChildToNode(cloned, parentId, newNode);
@@ -215,7 +232,7 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
       });
       const updatedSelected = findNodeById(cloned, selectedNode.id);
       setEditingData(cloned);
-      setSelectedNode(updatedSelected);
+      setSelectedNode(updatedSelected || null);
       setShowEditForm(false);
     }
   };
@@ -297,7 +314,8 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
           <div style={{ display: 'flex', gap: 12 }}>
             <button
               onClick={() => {
-                setEditingData(JSON.parse(JSON.stringify(data)));
+                const normalized = normalizeNode(JSON.parse(JSON.stringify(data)));
+                setEditingData(normalized);
                 setShowAddForm(false);
                 setShowEditForm(false);
                 setSelectedNode(null);
