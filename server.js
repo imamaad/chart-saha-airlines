@@ -43,7 +43,7 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-// Save data.json
+// Save data.json in the exact template: { organization: <tree> }
 app.post('/api/save-data', upload.single('data'), async (req, res) => {
   try {
     if (!req.file) {
@@ -60,11 +60,15 @@ app.post('/api/save-data', upload.single('data'), async (req, res) => {
       return res.status(400).json({ error: 'فایل JSON نامعتبر است' });
     }
 
+    // Normalize to template
+    // If payload already contains { organization: ... } keep it, else wrap
+    const payload = parsed && parsed.organization ? parsed : { organization: parsed };
+
     // Ensure directory exists
     await fs.mkdir(PUBLIC_DIR, { recursive: true });
 
-    // Save to public/data.json
-    await fs.writeFile(DATA_FILE, JSON.stringify(parsed, null, 2), 'utf8');
+    // Save to public/data.json (pretty formatted)
+    await fs.writeFile(DATA_FILE, JSON.stringify(payload, null, 2), 'utf8');
 
     // Stat after write
     const stats = await fs.stat(DATA_FILE);
