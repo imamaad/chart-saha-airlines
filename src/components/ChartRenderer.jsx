@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useRef, useEffect, useLayoutEffect} from 'react';
+import React, {useMemo, useState, useRef, useEffect, useLayoutEffect, useCallback} from 'react';
 import {
     ReactFlow,
     MiniMap,
@@ -9,6 +9,7 @@ import {
     Position,
     useReactFlow,
     ConnectionLineType,
+    applyNodeChanges,
 } from '@xyflow/react';
 import {toPng} from 'html-to-image';
 
@@ -679,6 +680,18 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         return {nodes: nodesAcc, edges: edgesAcc};
     }, [data, onNodeClick, collapsedIds]);
 
+    const [nodesState, setNodesState] = useState([]);
+    const [edgesState, setEdgesState] = useState([]);
+
+    useEffect(() => {
+        setNodesState(nodes);
+        setEdgesState(edges);
+    }, [nodes, edges]);
+
+    const onNodesChange = useCallback((changes) => {
+        setNodesState((currentNodes) => applyNodeChanges(changes, currentNodes));
+    }, []);
+
     const subtreeStats = useMemo(() => computeStatsFor(selectedNode), [selectedNode]);
 
     useEffect(() => {
@@ -913,8 +926,8 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                 }}
             >
                 <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
+                    nodes={nodesState}
+                    edges={edgesState}
                     nodeTypes={nodeTypes}
                     fitView={false}
                     fitViewOptions={{padding: 0.2, includeHiddenNodes: false, minZoom: 0.01, maxZoom: 1.5}}
@@ -936,7 +949,7 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                     preventScrolling
                     zoomActivationKeyCode="Meta"
                     selectNodesOnDrag={false}
-                    nodesDraggable={false}
+                    nodesDraggable
                     nodesConnectable={false}
                     elementsSelectable
                     snapToGrid={false}
@@ -946,6 +959,7 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                     nodeExtent={[[-Infinity, -Infinity], [Infinity, Infinity]]}
                     minZoom={0.01}
                     maxZoom={3}
+                    onNodesChange={onNodesChange}
                     onNodeClick={(_, node) => node?.data?.onNodeClick?.()}
                     onNodeMouseEnter={(_, node) => node?.data?.onMouseEnter?.()}
                     onNodeMouseLeave={(_, node) => node?.data?.onMouseLeave?.()}
