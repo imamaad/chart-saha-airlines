@@ -267,11 +267,11 @@ export const DataEditor = ({ data, onDataChange, onClose }) => {
     };
 
     return (
-      <div style={{ padding: '8px 12px', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 8, background: selectedNode?.id === node.id ? '#eff6ff' : '#fff' }}>
+      <div style={{ padding: '8px 12px', borderRadius: 10, border: '1px solid #e2e8f0', marginBottom: 8, background: selectedNode?.id === node.id ? '#eff6ff' : '#000' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             {hasChildren && (
-              <button onClick={() => toggleExpand(node.id)} aria-label="toggle" style={{ width: 28, height: 28, borderRadius: 8, border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer' }}>
+              <button onClick={() => toggleExpand(node.id)} aria-label="toggle" style={{ width: 28, height: 28, borderRadius: 8, border: '1px solid #e2e8f0', background: '#000', cursor: 'pointer' }}>
                 {isExpanded ? '−' : '+'}
               </button>
             )}
