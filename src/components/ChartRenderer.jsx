@@ -497,11 +497,14 @@ const SUBTREE_NODE_WIDTH = 320;
 const H_SPACING = 20;
 const V_SPACING = 400;
 
-function calcSubtreeWidth(node) {
-    if (!node?.children || node.children.length === 0) return SUBTREE_NODE_WIDTH;
+function calcSubtreeWidthWithCollapse(node, collapsedIds, path = []) {
+    if (!node) return SUBTREE_NODE_WIDTH;
+    const id = makeNodeId(path);
+    if (collapsedIds.has(id)) return SUBTREE_NODE_WIDTH;
+    if (!node.children || node.children.length === 0) return SUBTREE_NODE_WIDTH;
     let total = 0;
     node.children.forEach((child, i) => {
-        total += calcSubtreeWidth(child);
+        total += calcSubtreeWidthWithCollapse(child, collapsedIds, [...path, i]);
         if (i < node.children.length - 1) total += H_SPACING;
     });
     return Math.max(total, SUBTREE_NODE_WIDTH);
@@ -551,6 +554,18 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         });
     };
 
+    useEffect(() => {
+        // Recenter after collapse/expand to keep layout pleasant
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                const root = getNode('root');
+                if (root) {
+                    fitView({ nodes: [{id: 'root'}], padding: 0.2, duration: 400, minZoom: 0.2, maxZoom: 1 });
+                }
+            }, 30);
+        });
+    }, [collapsedIds, fitView, getNode]);
+
     const handleFullscreen = () => {
         if (!containerRef.current) return;
         if (!document.fullscreenElement) {
@@ -598,7 +613,7 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         const nodesAcc = [];
         const edgesAcc = [];
 
-        const rootWidth = calcSubtreeWidth(data);
+        const rootWidth = calcSubtreeWidthWithCollapse(data, collapsedIds, []);
         const startX = -(rootWidth / 2) + SUBTREE_NODE_WIDTH / 2;
 
         const walk = (node, level = 0, parentPath = [], x = startX, y = 0) => {
@@ -612,7 +627,7 @@ const ChartRendererInner = ({data, onNodeClick}) => {
             if (node.children?.length && !isCollapsed) {
                 let totalChildrenWidth = 0;
                 const childMeta = node.children.map((child, idx) => {
-                    const w = calcSubtreeWidth(child);
+                    const w = calcSubtreeWidthWithCollapse(child, collapsedIds, [...path, idx]);
                     const cx = x + totalChildrenWidth;
                     totalChildrenWidth += w + H_SPACING;
                     return {child, cx, w};
