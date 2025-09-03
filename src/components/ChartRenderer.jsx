@@ -70,8 +70,8 @@ const OrgNode = React.memo(function OrgNode({data}) {
                 boxShadow: hovered ? '0 16px 40px rgba(0, 0, 0, 0.25)' : '0 8px 25px rgba(0, 0, 0, 0.15)',
                 cursor: 'pointer',
                 transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-                width: '320px', // عرض ثابت برای تمام گره‌ها
-                minHeight: '280px', // حداقل ارتفاع برای یکسان بودن
+                width: '320px',
+                minHeight: '280px',
                 textAlign: 'center',
                 position: 'relative',
                 transform: hovered ? 'scale(1.05) translateY(-4px)' : 'scale(1)',
@@ -83,6 +83,27 @@ const OrgNode = React.memo(function OrgNode({data}) {
                 justifyContent: 'space-between'
             }}
         >
+            {/* Collapse/Expand toggle */}
+            <button
+                onClick={(e) => { e.stopPropagation(); data.onToggleCollapse?.(); }}
+                title={data.isCollapsed ? 'باز کردن' : 'بستن'}
+                style={{
+                    position: 'absolute',
+                    top: '10px',
+                    right: '10px',
+                    width: '28px',
+                    height: '28px',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e7eb',
+                    background: data.isCollapsed ? '#fee2e2' : '#e0f2fe',
+                    color: data.isCollapsed ? '#b91c1c' : '#0369a1',
+                    cursor: 'pointer',
+                    fontWeight: '800'
+                }}
+            >
+                {data.isCollapsed ? '+' : '−'}
+            </button>
+
             {/* Handle بالا */}
             <Handle
                 type="target"
@@ -153,7 +174,7 @@ const OrgNode = React.memo(function OrgNode({data}) {
                         lineHeight: '1.3',
                         textShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
                         wordBreak: 'break-word',
-                        minHeight: '44px', // ارتفاع ثابت برای عنوان
+                        minHeight: '44px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -197,7 +218,7 @@ const OrgNode = React.memo(function OrgNode({data}) {
                     {data.employmentType || 'نوع مشخص نشده'}
                 </div>
 
-                {/* آمار کلی - همیشه نمایش داده می‌شود */}
+                {/* آمار کلی */}
                 <div style={{display: 'flex', flexDirection: 'column', gap: '6px', marginTop: '10px'}}>
                     <div
                         style={{
@@ -218,7 +239,6 @@ const OrgNode = React.memo(function OrgNode({data}) {
                         {total > 0 ? `${total} نفر` : 'بدون کارمند'}
                     </div>
 
-                    {/* نمایش جزئیات آمار */}
                     {showDetails && (
                         <div style={{
                             marginTop: '8px',
@@ -295,7 +315,7 @@ const OrgNode = React.memo(function OrgNode({data}) {
                         </div>
                     )}
 
-                    {/* نمایش آمار خلاصه - همیشه نمایش داده می‌شود */}
+                    {/* نمایش آمار خلاصه */}
                     <div style={{display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '4px', marginTop: '6px'}}>
                         <div
                             style={{
@@ -418,7 +438,6 @@ const OrgNode = React.memo(function OrgNode({data}) {
                         </div>
                     </div>
 
-                    {/* راهنمای دابل کلیک */}
                     <div style={{
                         fontSize: '9px',
                         color: '#9ca3af',
@@ -444,12 +463,12 @@ const OrgNode = React.memo(function OrgNode({data}) {
                         borderRadius: '10px',
                         fontSize: '11px',
                         fontWeight: '600',
-                        color: '#3b82f6',
-                        border: '2px solid #3b82f6',
+                        color: data.isCollapsed ? '#ef4444' : '#3b82f6',
+                        border: `2px solid ${data.isCollapsed ? '#ef4444' : '#3b82f6'}`,
                         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
                     }}
                 >
-                    {data.children.length} زیرمجموعه
+                    {data.children.length} زیرمجموعه {data.isCollapsed ? '(بسته)' : ''}
                 </div>
             )}
 
@@ -472,10 +491,8 @@ const OrgNode = React.memo(function OrgNode({data}) {
 const nodeTypes = {orgNode: OrgNode};
 
 /* --------------------------- Helpers --------------------------- */
-// آی‌دی پایدار بر اساس مسیر درخت؛ ریشه همیشه "root" است
 const makeNodeId = (pathArr) => (pathArr.length === 0 ? 'root' : pathArr.join('-'));
 
-// محاسبه پهنای زیردرخت برای چیدمان
 const SUBTREE_NODE_WIDTH = 320;
 const H_SPACING = 20;
 const V_SPACING = 400;
@@ -490,7 +507,6 @@ function calcSubtreeWidth(node) {
     return Math.max(total, SUBTREE_NODE_WIDTH);
 }
 
-// محاسبه آمار زیردرخت برای یک نود (Hoisted)
 function computeStatsFor(rootNode) {
     const acc = {
         capacity: 0,
@@ -521,15 +537,22 @@ function computeStatsFor(rootNode) {
 /* --------------------------- Inner Component --------------------------- */
 const ChartRendererInner = ({data, onNodeClick}) => {
     const {fitView, getNode} = useReactFlow();
-    const chartWrapperRef = useRef(null); // ⚡ اضافه: مرجع به بخش چارت
-    const containerRef = useRef(null); // مرجع به کانتینر برای فول‌اسکرین
+    const chartWrapperRef = useRef(null);
+    const containerRef = useRef(null);
     const [hoveredNode, setHoveredNode] = useState(null);
     const [selectedNode, setSelectedNode] = useState(data || null);
+    const [collapsedIds, setCollapsedIds] = useState(() => new Set());
 
-    // دکمه‌ی فول‌اسکرین
+    const toggleCollapseById = (id) => {
+        setCollapsedIds((prev) => {
+            const next = new Set(prev);
+            if (next.has(id)) next.delete(id); else next.add(id);
+            return next;
+        });
+    };
+
     const handleFullscreen = () => {
         if (!containerRef.current) return;
-
         if (!document.fullscreenElement) {
             containerRef.current.requestFullscreen?.();
         } else {
@@ -537,7 +560,6 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         }
     };
 
-    // ⚡ تابع تبدیل به عکس
     const handleExportImage = async () => {
         if (!chartWrapperRef.current) return;
 
@@ -546,28 +568,20 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         );
 
         try {
-            // کنترل‌ها رو موقتاً مخفی کن
             controls.forEach(el => (el.style.display = "none"));
-
-            // به جای wrapper، فقط بخش ReactFlow رو بگیر
             const flowElement = chartWrapperRef.current.querySelector(".react-flow");
-
-            const scale = 4; // کیفیت خروجی
+            const scale = 4;
             const dataUrl = await toPng(flowElement, {
                 cacheBust: true,
                 pixelRatio: scale,
-                backgroundColor: null, // پس‌زمینه شفاف
+                backgroundColor: null,
                 style: {
                     margin: 0,
                     padding: 0,
-                    background: "transparent", // بدون پس‌زمینه
+                    background: "transparent",
                 },
             });
-
-            // دوباره کنترل‌ها رو نشون بده
             controls.forEach(el => (el.style.display = ""));
-
-            // دانلود فایل
             const link = document.createElement("a");
             link.download = "chart.png";
             link.href = dataUrl;
@@ -578,7 +592,6 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         }
     };
 
-    // nodes & edges (با آی‌دی پایدار + parentId)
     const {nodes, edges} = useMemo(() => {
         if (!data) return {nodes: [], edges: []};
 
@@ -589,12 +602,14 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         const startX = -(rootWidth / 2) + SUBTREE_NODE_WIDTH / 2;
 
         const walk = (node, level = 0, parentPath = [], x = startX, y = 0) => {
-            const path = parentPath; // path فعلی والد
+            const path = parentPath;
             const id = makeNodeId(path);
             let nodeX = x;
             let nodeY = y + level * V_SPACING;
 
-            if (node.children?.length) {
+            const isCollapsed = collapsedIds.has(id);
+
+            if (node.children?.length && !isCollapsed) {
                 let totalChildrenWidth = 0;
                 const childMeta = node.children.map((child, idx) => {
                     const w = calcSubtreeWidth(child);
@@ -610,10 +625,8 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                 childMeta.forEach(({child, cx}, idx) => {
                     const childPath = [...path, idx];
                     const childId = makeNodeId(childPath);
-                    // ادامه‌ی پیمایش
                     walk(child, level + 1, childPath, cx, y);
 
-                    // یال از این نود به کودک
                     edgesAcc.push({
                         id: `e-${id}-${childId}`,
                         source: id,
@@ -635,6 +648,8 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                     level,
                     parentId: path.length ? makeNodeId(path.slice(0, -1)) : null,
                     subtreeStats: computeStatsFor(node),
+                    isCollapsed,
+                    onToggleCollapse: () => toggleCollapseById(id),
                     onNodeClick: () => {
                         setSelectedNode(node);
                         onNodeClick?.(node);
@@ -645,16 +660,12 @@ const ChartRendererInner = ({data, onNodeClick}) => {
             });
         };
 
-        // شروع از ریشه با مسیر []
         walk(data, 0, []);
-
         return {nodes: nodesAcc, edges: edgesAcc};
-    }, [data, onNodeClick]);
+    }, [data, onNodeClick, collapsedIds]);
 
-    // محاسبه آمار زیردرخت انتخاب‌شده
     const subtreeStats = useMemo(() => computeStatsFor(selectedNode), [selectedNode]);
 
-    // انتشار آمار انتخابی و هاور به صورت رویداد سفارشی
     useEffect(() => {
         const detail = {node: selectedNode, stats: subtreeStats};
         const event = new CustomEvent('chart:selectedStats', {detail});
@@ -667,12 +678,9 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         window.dispatchEvent(event);
     }, [hoveredNode]);
 
-    // فوکوس مطلق روی ریشه‌ی سازمانی (id = "root") بعد از رندر گراف
     const focusRoot = useRef(false);
     useLayoutEffect(() => {
         if (!data || nodes.length === 0) return;
-
-        // یک فریم صبر کن تا ابعاد محاسبه شود
         requestAnimationFrame(() => {
             setTimeout(() => {
                 const root = getNode('root');
@@ -725,7 +733,6 @@ const ChartRendererInner = ({data, onNodeClick}) => {
 
     return (
         <div ref={containerRef} style={{position: 'relative', height: '800px'}}>
-            {/* دکمه‌ی فول‌اسکرین */}
             <button
                 onClick={handleFullscreen}
                 style={{
@@ -749,7 +756,6 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                 ⛶ فول‌اسکرین
             </button>
 
-            {/* ⚡ دکمه‌ی ذخیره به عکس */}
             <button
                 onClick={handleExportImage}
                 style={{
@@ -770,7 +776,6 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                 📷 ذخیره عکس
             </button>
 
-            {/* Tooltip */}
             {hoveredNode && (
                 <div
                     style={{
@@ -880,11 +885,8 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                 </div>
             )}
 
-            {/* هدر حذف شد؛ آمار از طریق رویداد به Header ارسال می‌شود */}
-
-            {/* Container */}
             <div
-                ref={chartWrapperRef} // ⚡ مرجع به همین بخش
+                ref={chartWrapperRef}
                 style={{
                     background: 'linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)',
                     borderRadius: '20px',
@@ -966,7 +968,6 @@ const ChartRendererInner = ({data, onNodeClick}) => {
     );
 };
 
-/* --------------------------- Exported Wrapper --------------------------- */
 export const ChartRenderer = ({data, onNodeClick}) => {
     return (
         <ReactFlowProvider>
