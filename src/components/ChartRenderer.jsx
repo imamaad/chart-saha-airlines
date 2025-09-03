@@ -537,6 +537,47 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         }
     };
 
+    // ⚡ تابع تبدیل به عکس
+    const handleExportImage = async () => {
+        if (!chartWrapperRef.current) return;
+
+        const controls = containerRef.current.querySelectorAll(
+            ".react-flow__controls, .react-flow__minimap, button"
+        );
+
+        try {
+            // کنترل‌ها رو موقتاً مخفی کن
+            controls.forEach(el => (el.style.display = "none"));
+
+            // به جای wrapper، فقط بخش ReactFlow رو بگیر
+            const flowElement = chartWrapperRef.current.querySelector(".react-flow");
+
+            const scale = 4; // کیفیت خروجی
+            const dataUrl = await toPng(flowElement, {
+                cacheBust: true,
+                pixelRatio: scale,
+                backgroundColor: null, // پس‌زمینه شفاف
+                style: {
+                    margin: 0,
+                    padding: 0,
+                    background: "transparent", // بدون پس‌زمینه
+                },
+            });
+
+            // دوباره کنترل‌ها رو نشون بده
+            controls.forEach(el => (el.style.display = ""));
+
+            // دانلود فایل
+            const link = document.createElement("a");
+            link.download = "chart.png";
+            link.href = dataUrl;
+            link.click();
+        } catch (err) {
+            console.error("خطا در گرفتن عکس:", err);
+            controls.forEach(el => (el.style.display = ""));
+        }
+    };
+
     // nodes & edges (با آی‌دی پایدار + parentId)
     const {nodes, edges} = useMemo(() => {
         if (!data) return {nodes: [], edges: []};
@@ -681,47 +722,6 @@ const ChartRendererInner = ({data, onNodeClick}) => {
         );
     }
 
-
-    // ⚡ تابع تبدیل به عکس
-    const handleExportImage = async () => {
-        if (!chartWrapperRef.current) return;
-
-        const controls = containerRef.current.querySelectorAll(
-            ".react-flow__controls, .react-flow__minimap, button"
-        );
-
-        try {
-            // کنترل‌ها رو موقتاً مخفی کن
-            controls.forEach(el => (el.style.display = "none"));
-
-            // به جای wrapper، فقط بخش ReactFlow رو بگیر
-            const flowElement = chartWrapperRef.current.querySelector(".react-flow");
-
-            const scale = 4; // کیفیت خروجی
-            const dataUrl = await toPng(flowElement, {
-                cacheBust: true,
-                pixelRatio: scale,
-                backgroundColor: null, // پس‌زمینه شفاف
-                style: {
-                    margin: 0,
-                    padding: 0,
-                    background: "transparent", // بدون پس‌زمینه
-                },
-            });
-
-            // دوباره کنترل‌ها رو نشون بده
-            controls.forEach(el => (el.style.display = ""));
-
-            // دانلود فایل
-            const link = document.createElement("a");
-            link.download = "chart.png";
-            link.href = dataUrl;
-            link.click();
-        } catch (err) {
-            console.error("خطا در گرفتن عکس:", err);
-            controls.forEach(el => (el.style.display = ""));
-        }
-    };
 
     return (
         <div ref={containerRef} style={{position: 'relative', height: '800px'}}>
