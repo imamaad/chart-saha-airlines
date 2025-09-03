@@ -900,7 +900,7 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                     edges={edges}
                     nodeTypes={nodeTypes}
                     fitView={false}
-                    fitViewOptions={{padding: 0.2, includeHiddenNodes: false, minZoom: 0.2, maxZoom: 1.5}}
+                    fitViewOptions={{padding: 0.2, includeHiddenNodes: false, minZoom: 0.01, maxZoom: 1.5}}
                     attributionPosition="bottom-left"
                     style={{backgroundColor: 'transparent'}}
                     defaultEdgeOptions={{
@@ -927,7 +927,7 @@ const ChartRendererInner = ({data, onNodeClick}) => {
                     onlyRenderVisibleElements
                     translateExtent={[[-Infinity, -Infinity], [Infinity, Infinity]]}
                     nodeExtent={[[-Infinity, -Infinity], [Infinity, Infinity]]}
-                    minZoom={0.2}
+                    minZoom={0.01}
                     maxZoom={3}
                     onNodeClick={(_, node) => node?.data?.onNodeClick?.()}
                     onNodeMouseEnter={(_, node) => node?.data?.onMouseEnter?.()}
